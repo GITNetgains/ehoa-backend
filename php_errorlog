@@ -1,0 +1,18 @@
+[14-Oct-2023 12:14:39 UTC] PHP Fatal error:  Allowed memory size of 805306368 bytes exhausted (tried to allocate 568332288 bytes) in /home/customer/www/ehoa.app/public_html/app/Http/Controllers/UserAdminController.php on line 63
+[14-Oct-2023 12:16:23 UTC] PHP Fatal error:  Allowed memory size of 805306368 bytes exhausted (tried to allocate 484446208 bytes) in /home/customer/www/ehoa.app/public_html/app/Http/Controllers/UserAdminController.php on line 64
+[19-Oct-2023 02:36:21 CST6CDT] PHP Fatal error:  Uncaught Error: Undefined constant "phpinfo" in /home/customer/www/ehoa.app/public_html/testme.php:2
+Stack trace:
+#0 {main}
+  thrown in /home/customer/www/ehoa.app/public_html/testme.php on line 2
+[19-Oct-2023 16:54:23 UTC] PHP Fatal error:  Composer detected issues in your platform: Your Composer dependencies require a PHP version ">= 8.1.0". You are running 7.4.33. in /home/customer/www/ehoa.app/public_html/vendor/composer/platform_check.php on line 24
+[19-Oct-2023 16:57:33 UTC] PHP Fatal error:  Composer detected issues in your platform: Your Composer dependencies require a PHP version ">= 8.1.0". You are running 7.4.33. in /home/customer/www/ehoa.app/public_html/vendor/composer/platform_check.php on line 24
+[19-Oct-2023 17:00:45 UTC] PHP Fatal error:  Composer detected issues in your platform: Your Composer dependencies require a PHP version ">= 8.1.0". You are running 7.4.33. in /home/customer/www/ehoa.app/public_html/vendor/composer/platform_check.php on line 24
+[19-Oct-2023 17:01:57 UTC] PHP Fatal error:  Composer detected issues in your platform: Your Composer dependencies require a PHP version ">= 8.1.0". You are running 7.4.33. in /home/customer/www/ehoa.app/public_html/vendor/composer/platform_check.php on line 24
+[19-Oct-2023 17:02:14 UTC] PHP Fatal error:  Composer detected issues in your platform: Your Composer dependencies require a PHP version ">= 8.1.0". You are running 7.4.33. in /home/customer/www/ehoa.app/public_html/vendor/composer/platform_check.php on line 24
+[19-Oct-2023 17:05:16 UTC] PHP Parse error:  syntax error, unexpected 'static' (T_STATIC) in /home/customer/www/ehoa.app/public_html/vendor/symfony/string/UnicodeString.php on line 44
+[19-Oct-2023 17:07:06 UTC] PHP Parse error:  syntax error, unexpected '|', expecting variable (T_VARIABLE) in /home/customer/www/ehoa.app/public_html/vendor/nunomaduro/termwind/src/Functions.php on line 17
+[19-Oct-2023 17:09:36 UTC] PHP Parse error:  syntax error, unexpected '|', expecting variable (T_VARIABLE) in /home/customer/www/ehoa.app/public_html/vendor/nunomaduro/termwind/src/Functions.php on line 17
+[19-Oct-2023 17:10:43 UTC] PHP Parse error:  syntax error, unexpected '|', expecting variable (T_VARIABLE) in /home/customer/www/ehoa.app/public_html/vendor/nunomaduro/termwind/src/Functions.php on line 17
+[19-Oct-2023 17:28:20 UTC] PHP Parse error:  syntax error, unexpected '|', expecting variable (T_VARIABLE) in /home/customer/www/ehoa.app/public_html/vendor/nunomaduro/termwind/src/Functions.php on line 17
+[19-Oct-2023 17:31:15 UTC] PHP Parse error:  syntax error, unexpected '|', expecting variable (T_VARIABLE) in /home/customer/www/ehoa.app/public_html/vendor/nunomaduro/termwind/src/Functions.php on line 17
+[19-Oct-2023 17:36:30 UTC] PHP Parse error:  syntax error, unexpected '|', expecting variable (T_VARIABLE) in /home/customer/www/ehoa.app/public_html/vendor/nunomaduro/termwind/src/Functions.php on line 17

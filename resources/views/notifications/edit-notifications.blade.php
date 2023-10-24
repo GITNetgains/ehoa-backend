@@ -140,7 +140,7 @@
                         <div class="form-group row mb-3 checkboxes">
                             <label class="col-sm-4 control-label text-sm-end pt-2">All Users <span class="text-danger">*</span></label>
                             <div class="col-sm-6">
-                                <input type="checkbox" name="users_id" id="users_id" @if($olddata->user_id == 1) checked @endif value="0"
+                                <input type="checkbox" name="users_id" id="users_id" @if($olddata->user_id== 1) checked @endif value="0"
                                     class="form-control-checked checkbox">
                                 <span class="text-danger">
                                     @error('user_id')
@@ -156,10 +156,10 @@
                                 <select class="form-control" id="user_id" name="user_id[]" multiple>
                                     @isset($users)
                                         @foreach ($users as $user)
-                                            <option value="{{$user->user_id }}"
+                                            <option value="{{$user->user_id}}"
                                                 @if(isset($users_send_notifications))
                                                @foreach($users_send_notifications as $noti) 
-                                               @if($noti->user_id == $user->user_id) selected @endif
+                                               @if($noti->user_id== $user->user_id) selected @endif
                                                 @endforeach>
                                                 @endif
                                                 {{ $user->name }}
@@ -274,10 +274,10 @@
         $(".checkbox").click(function() {
             
             if($(this).is(":checked")) {
-        $('#user_id option').prop('selected', true);
+        $('#user_idoption').prop('selected', true);
         
             } else {
-                $('#user_id option').prop('selected', false);
+                $('#user_idoption').prop('selected', false);
             }
         });
                 

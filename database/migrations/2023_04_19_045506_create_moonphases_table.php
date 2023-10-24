@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('moonphases', function (Blueprint $table) {
-            $table->increment('moon_phase_id');
+            $table->increments('moon_phase_id');
             $table->string('moon_phases_name')->nullable();
             $table->string('short_description')->nullable();
             $table->string('icon')->nullable();

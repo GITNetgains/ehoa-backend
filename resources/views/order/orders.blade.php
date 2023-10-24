@@ -148,7 +148,7 @@
 
                                          foreach($users as $user){
 
-                                               if($user->user_id == $key->user_id){
+                                               if($user->user_id== $key->user_id){
 
                                                 echo ucfirst($user->name);
 

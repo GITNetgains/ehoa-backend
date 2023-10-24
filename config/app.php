@@ -182,7 +182,6 @@ return [
         Illuminate\Translation\TranslationServiceProvider::class,
         Illuminate\Validation\ValidationServiceProvider::class,
         Illuminate\View\ViewServiceProvider::class,
-        Owenoj\LaravelGetId3\GetId3ServiceProvider::class,
 
         /*
          * Package Service Providers...

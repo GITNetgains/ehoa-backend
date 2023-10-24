@@ -104,7 +104,7 @@
 
                                                     @foreach($users as $use)
 
-                                                    <option value="{{$use->user_id}}" @if($order->user_id == $use->user_id) selected @endif >
+                                                    <option value="{{$use->user_id}}" @if($order->user_id== $use->user_id) selected @endif >
 
                                                     {{$use->name}}
 
@@ -148,7 +148,7 @@
 
 										@foreach($users as $use)
 
-										<p>@if($order->user_id == $use->user_id) User Email  : {{$use->email}} @endif </p>
+										<p>@if($order->user_id== $use->user_id) User Email  : {{$use->email}} @endif </p>
 
 										
 

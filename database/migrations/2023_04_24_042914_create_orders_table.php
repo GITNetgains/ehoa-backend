@@ -19,7 +19,6 @@ return new class extends Migration
             $table->string('coupons');
             $table->string('package_expiry_date');
             $table->string('package_start_date');
-            $table->string('coupons');
             $table->timestamps();
         });
     }

@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('sub_podcasts', function (Blueprint $table) {
-            $table->increments('s_p_id ');
+            $table->increments('s_p_id');
             $table->integer('sub_p_id');
             $table->integer('parent_type');
             $table->integer('sub_child_parent_type');

@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('users_send_notifications', function (Blueprint $table) {
-            $table->incements('user_send_id');
+            $table->increments('user_send_id');
             $table->string('user_id');
             $table->string('notification');
             $table->timestamps();

@@ -36,7 +36,7 @@
             <form id="form1" class="form-horizontal" action="{{ '/update-users' }}" method="post">
                 @csrf
                 <div class="card-body">
-                    <input type="hidden" name="user_id" value="{{ $olddata->user_id }}">
+                    <input type="hidden" name="user_id" value="{{ $olddata->user_id}}">
 
                     <div class="form-group row mb-3">
                         <label class="col-sm-4 control-label text-sm-end pt-2">Name <span class="required">*</span></label>

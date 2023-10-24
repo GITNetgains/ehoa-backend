@@ -101,4 +101,4 @@
 </section>
 </div></div>
 <x-footer />
-{{-- onclick="userdetails('{{ $user->user_id }}')" --}}
+{{-- onclick="userdetails('{{ $user->user_id}}')" --}}

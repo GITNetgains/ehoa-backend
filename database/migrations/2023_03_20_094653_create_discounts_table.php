@@ -20,8 +20,8 @@ return new class extends Migration
             $table->string('description')->nullable();
             $table->string('amount')->nullable();
             $table->string('image')->nullable();
-            $table->int('premission')->nullable();
-            $table->int('total_spend')->nullable();
+            $table->integer('premission')->nullable();
+            $table->integer('total_spend')->nullable();
             $table->timestamps();
         });
     }

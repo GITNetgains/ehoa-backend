@@ -122,7 +122,7 @@
 
                                         @foreach($users as $use)
 
-                                        <option value="{{$use->user_id}}" @if($podc->user_id == $use->user_id) selected @endif >
+                                        <option value="{{$use->user_id}}" @if($podc->user_id== $use->user_id) selected @endif >
 
                                         {{$use->name}}
 

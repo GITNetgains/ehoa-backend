@@ -44,7 +44,7 @@ class UserAdminController extends Controller
                 $user->status = 1;
                 $user->remember_token = $token;
                 $user->save();
-                $user_id = $user->id;
+                $user_id= $user->id;
                 $get_token = DB::table('users')->where('user_id', $user_id)->first();
             }
             // email verify request
@@ -83,7 +83,7 @@ class UserAdminController extends Controller
                 $user->status = 1;
                 $user->remember_token = $token;
                 $user->save();
-                $user_id = $user->id;
+                $user_id= $user->id;
                 $get_token = DB::table('users')->where('user_id', $user_id)->first();
             }
             return redirect('/admin/admin-user')->with('message', 'User added successfully!');
@@ -129,7 +129,7 @@ class UserAdminController extends Controller
                 $credentials = $req->only('email', 'password');
                 if (Auth::attempt($credentials)) {
                     $status = auth()->user()->status;
-                    $user_id = auth()->user()->user_id;
+                    $user_id= auth()->user()->user_id;
                     $token = Str::random(64);
                     DB::table('users')->where('user_id', $user_id)->update(
                         array(
@@ -184,7 +184,7 @@ class UserAdminController extends Controller
                 );
                 DB::table('users')->where('email',  $req->email)->get();
                $data = DB::table('users')->where('email',  $req->email)->first();
-                return response()->json(['email' => $req->email, 'user_id' => $data -> user_id ,'token' => $token, 'success' => 'Sucessfully Login'], 401);
+                return response()->json(['email' => $req->email, 'user_id' => $data -> user_id,'token' => $token, 'success' => 'Sucessfully Login'], 401);
             } else {
                 // dd($token);
                 Session::flush();
@@ -221,7 +221,7 @@ class UserAdminController extends Controller
                 $user->is_social = $social;
                 $user->remember_token = $token;
                 $user->save();
-                $user_id = $user->id;
+                $user_id= $user->id;
                 // $get_token = DB::table('users')->where('user_id', $user_id)->first();
             }
             // dd('okk');
@@ -764,18 +764,18 @@ public function addFriend(Request $req)
                         try {
                             // echo $req->user_id;
                             $symp1 = new cycles;
-                            $symp1->user_id = $req->user_id;
+                            $symp1->user_id= $req->user_id;
                             $symp1->month_id = 1;
                             $symp1->cycle_start_date = $req->period_day;
                             $symp1->save();
 
                             $symp2 = new cycles;
-                            $symp2->user_id = $req->user_id;
+                            $symp2->user_id= $req->user_id;
                             $symp2->month_id = 2;
                             $symp2->save();
 
                             $symp3 = new cycles;
-                            $symp3->user_id = $req->user_id;
+                            $symp3->user_id= $req->user_id;
                             $symp3->month_id = 3;
                             $symp3->save();
                         } catch (\Exception $exception) {
@@ -863,7 +863,7 @@ public function addFriend(Request $req)
                 } else {
                    
                     $symp = new user_symptoms;
-                    $symp->user_id = $req->user_id;
+                    $symp->user_id= $req->user_id;
                     
                     $symp->energy = $req->energy;
                    
@@ -1059,7 +1059,7 @@ public function addFriend(Request $req)
                     );
             } else {
                 $symp = new reminders;
-                $symp->user_id = $user_id;
+                $symp->user_id= $user_id;
                 $symp->scheduled = $scheduled;
                 $symp->status = $status;
                 $symp->fcm_token = $fcm_token;
@@ -2385,8 +2385,8 @@ public function addFriend(Request $req)
                     // dd($req->all());
                     // dd($symptoms_id);
                     $symp = new user_symptoms;
-                    $symp->user_id = $req->user_id;
-                    $symp->menstrual_flow = $req->menstrual_flow;
+                    $symp->user_id= $req->user_id;
+                    $symp->menstrual_flow= $req->menstrual_flow;
                     $symp->symptoms = $symptoms_id;
                     $symp->emotions = $req->emotions;
                     $symp->energy = $req->energy;

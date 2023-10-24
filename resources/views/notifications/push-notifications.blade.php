@@ -251,10 +251,10 @@
 $(".checkbox").click(function() {
     
     if($(this).is(":checked")) {
-$('#user_id option').prop('selected', true);
+$('#user_idoption').prop('selected', true);
 
     } else {
-        $('#user_id option').prop('selected', false);
+        $('#user_idoption').prop('selected', false);
     }
 });
         

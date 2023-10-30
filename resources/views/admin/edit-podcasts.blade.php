@@ -45,7 +45,7 @@
 
                 <section class="card">
                     <header class="card-header">
-                        
+
                         <h2 class="card-title" style="text-align:center">Update Podcast</h2>
                     </header>
                     <div class="card-body">
@@ -70,7 +70,7 @@
                                         @isset($category)
                                         @foreach($category as $categ)
                                         <option value="{{$categ->category_id}}" @if($podc->category_id == $categ->category_id) selected @endif >
-                                        {{$categ->category_name}}
+                                        {{$categ->path}}
                                         </option>
                                         @endforeach
                                         @endisset
@@ -96,7 +96,7 @@
                             </span>
                             </div>
                         </div> --}}
-                    
+
                         <div class="form-group row mb-3">
                             <label class="col-sm-4 control-label text-sm-end pt-2">Short Description <span class="text-danger">*</span></label>
                             <div class="col-sm-6">
@@ -133,7 +133,7 @@
                         <div class="form-group row pb-3">
                             <label class="col-sm-4 control-label text-sm-end pt-2 form-label select-label">Gender  <span class="text-danger">*</span></label>
                             <div class="col-sm-6">
-                            <select name="gender_id[]" multiple id="gender_id" class="form-control select"  required>  
+                            <select name="gender_id[]" multiple id="gender_id" class="form-control select"  required>
                                         <option value="1" @if(in_array(1, explode(',', $podc->gender_id))) selected @endif >Male</option>
                                         <option value="2" @if(in_array(2, explode(',', $podc->gender_id))) selected @endif>Female</option>
                                          <option value="3" @if(in_array(3, explode(',', $podc->gender_id))) selected @endif>Other</option>
@@ -148,7 +148,7 @@
                         <div class="form-group row pb-3">
                             <label class="col-sm-4 control-label text-sm-end pt-2 form-label select-label">Focus  <span class="text-danger">*</span></label>
                             <div class="col-sm-6">
-                            <select name="focus_id[]" multiple id="focus_id" class="form-control select"  required>  
+                            <select name="focus_id[]" multiple id="focus_id" class="form-control select"  required>
                                         <option value="1" @if(in_array(1, explode(',', $podc->focus_id))) selected @endif >Track menstrual cycle</option>
                                         <option value="2" @if(in_array(2, explode(',', $podc->focus_id))) selected @endif>Track energy levels</option>
                                     </select>
@@ -162,11 +162,11 @@
                            <div class="form-group row pb-3">
                             <label class="col-sm-4 control-label text-sm-end pt-2 form-label select-label">Language<span class="text-danger">*</span></label>
                             <div class="col-sm-6">
-                            <select name="language_id" id="language_id" class="form-control select"  required>  
-                                
+                            <select name="language_id" id="language_id" class="form-control select"  required>
+
                                         <option value="1" @if(old('language_id',$podc->language_id == 1)) selected @endif >English</option>
                                         <option value="2" @if(old('language_id',$podc->language_id == 2)) selected @endif>Māori</option>
-                                         
+
                                     </select>
                                     <span class="text-danger">
                                     @error('language_id')
@@ -187,7 +187,7 @@
                                 <img class="my-3" src="{{env('APP_URL')}}/{{$podc->thumbnail}}" alt="" style="height:58px;border-radius:6px;">
                             </div>
                         </div>
-                        
+
                          {{-- <div class="form-group row mb-3">
                             <label class="col-sm-4 control-label text-sm-end pt-2">Audio <span class="text-danger">*</span></label>
                             <div class="col-sm-6">
@@ -202,15 +202,15 @@
                                     <source src="{{env('APP_URL')}}/{{$podc->audio}}" type="audio/mpeg" style="height:58px;border-radius:6px;">
                                   </audio>
                             </div>
-                           
+
                         </div> --}}
-                        
-                       
+
+
                         <div class="form-group row pb-3">
                             <label class="col-sm-4 control-label text-sm-end pt-2 form-label select-label">Status  <span class="text-danger">*</span></label>
                             <div class="col-sm-6">
-                            <select name="status" id="status" class="form-control select"  required>  
-                                
+                            <select name="status" id="status" class="form-control select"  required>
+
                                         <option value="1" @if(old('status',$podc->status == 1)) selected @endif >Active</option>
                                         <option value="2" @if(old('status',$podc->status == 2)) selected @endif>In Active</option>
                                     </select>
@@ -252,18 +252,18 @@
     }
     var host = "{{URL::to('/')}}";
     $.ajax({
-        type: "POST", 
+        type: "POST",
         data: {
         "_token": "{{ csrf_token() }}",
          "category_id":category_id
    },
     url: host+'/admin/get-podcast-sub-categories',
 }).done(function(response) {
-     console.log(response.get_data);  
+     console.log(response.get_data);
      $.each(response.get_data, function(index, element){
         var data=' <option value="'+element.category_id +'">'+element.category_name+'</option>';
        $('#subcategory_id').append(data);
      });
-    });	
+    });
 });
 </script>

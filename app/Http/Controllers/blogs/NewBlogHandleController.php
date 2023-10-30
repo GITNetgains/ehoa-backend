@@ -71,12 +71,12 @@ class NewBlogHandleController extends Controller
             ->get();
         // dd($data);
         $data['categorys'] = DB::table('categories')
-            ->where('parent_type', 0)
             ->where('status', 1)
             ->get();
 
         return view('/admin/edit-blogs', $data);
     }
+    
     function EditBlogSlide($id)
     {
         $data['slide'] = DB::table('blog_slides')

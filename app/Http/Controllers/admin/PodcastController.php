@@ -29,7 +29,7 @@ class PodcastController extends Controller
     }
 
 
- 
+
 
     function podcastSave(Request $req)
     {
@@ -51,7 +51,7 @@ class PodcastController extends Controller
             'description' => 'required|max:250',
             'thumbnail' => 'image|required|mimes:' . $ext . '',
             'status' => 'required',
-            
+
         ]);
 if(is_array($req->gender_id)){
             $req->gender_id = implode(',',$req->gender_id);
@@ -170,7 +170,7 @@ if(is_array($req->gender_id)){
         try {
             $data['categ']=DB::table('categories')->where('parent_type',0)->where('status',1)->get();
         $data['categories']=DB::table('categories')->where('status',1)->get();
-        
+
             $data['podcast'] = DB::table('podcasts')->orderBy('podcast_id', 'DESC')->where('status','!=',3);
             if (!empty($req->language)) {
             $data['podcast']->where('language_id', $req->language);
@@ -201,7 +201,7 @@ if(is_array($req->gender_id)){
             DB::table('podcasts')->where('podcast_id', $podcast_id)
             ->update(
                 array(
-                    'status' => 3,    
+                    'status' => 3,
                 ));
             return redirect('/admin/list-all-podcast')->with('success','Podcast Archived Sucessfully');
         } catch (\Exception $exception) {
@@ -217,9 +217,9 @@ if(is_array($req->gender_id)){
             ->get();
         foreach ($data['podcasts'] as $olddata) {
             $sub_category_id = $olddata->subcategory_id;
-            
+
         }
-        $data['category'] = DB::table('categories')->where('parent_type', 0)->where('status', 1)->get();
+        $data['category'] = DB::table('categories')->where('status', 1)->get();
         $data['sub_category'] = DB::table('categories')->where('category_id', $sub_category_id)->first();
         return view('/admin/edit-podcasts', $data);
     }
@@ -282,7 +282,7 @@ if(is_array($req->gender_id)){
             //                 ->withErrors($validator)
             //                 ->withInput();
             //         }
-                    
+
             //         $file_audio = $req->audio;
             //         $getID3 = new GetID3($file_audio);
             //         $file_name = $file_audio->getClientOriginalName();
@@ -304,7 +304,7 @@ if(is_array($req->gender_id)){
 
             //     }
 
-            // } 
+            // }
             // else {
             //     return redirect('/admin/edit-podcast/' . $req->id)->with('error', 'One Time Only One Field Mandatory from Audio & URL');
             // }
@@ -370,7 +370,7 @@ if(is_array($req->gender_id)){
                             'audio_url' => $req->audio_url,
                             // 'file_url' => $req->file_url,
                             'status' => $req->status,
-                             
+
                         )
                     );
 
@@ -401,7 +401,7 @@ function searchpodcast(Request $req){
             //   dd($data_loop);
             $data='';
              $i = $data_loop->perPage() * ($data_loop->currentPage() - 1) + 1;
-            foreach ($data_loop as $loop) { 
+            foreach ($data_loop as $loop) {
 
                 $data .= '<tr style="" >
                     <td>'. $i++.'</td>
@@ -413,7 +413,7 @@ function searchpodcast(Request $req){
                                 $data.=ucfirst($keyy->category_name);
                               }
                                }
-                    
+
                     $data.='</td>
                     <td>';
                     foreach ($categories as $keyy){
@@ -446,7 +446,7 @@ function searchpodcast(Request $req){
                             onclick="return confirm("Do you really want to delete '.ucfirst($loop->title).'this Video? ")">Delete</a>
                     </td>
                 </tr>';
-            
+
             }
             // dd($data);
 
@@ -461,7 +461,7 @@ function podcastArchived(){
     try {
         $data['categ']=DB::table('categories')->where('parent_type',0)->where('status',1)->get();
     $data['categories']=DB::table('categories')->where('status',1)->get();
-    
+
         $data['podcast'] = DB::table('podcasts')->orderBy('podcast_id', 'DESC')->where('status',3)
         ->paginate(25);
         return view('/admin/archived-podcast', $data);
@@ -475,12 +475,12 @@ function podcastUndo($podcast_id){
         DB::table('podcasts')->where('podcast_id', $podcast_id)
         ->update(
             array(
-                'status' => 1,    
+                'status' => 1,
             ));
         return redirect('/admin/archived-podcast')->with('success','Podcast Active Sucessfully');
     } catch (\Exception $exception) {
         $data['error'] = $exception->getMessage();
         return view('error', $data);
-    } 
+    }
 }
 }

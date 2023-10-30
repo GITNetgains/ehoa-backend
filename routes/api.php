@@ -66,6 +66,7 @@ Route::post('/save-cycle-days',[UserAdminController::class,'saveCycleDays']);
 Route::post('/save-period-day',[UserAdminController::class,'savePeriodDay']);
 Route::post('/save-focus',[UserAdminController::class,'saveFocus']);
 
+Route::get('/get-categories', [UserAdminController::class,'getAllCategories']);
 Route::get('/show-categories',[UserAdminController::class,'showCategories']);
 Route::get('/show-all-categories',[UserAdminController::class,'showAllCategories']);
 Route::get('/show-sub-categories/{category_id}',[UserAdminController::class,'showSubCategories']);

@@ -225,7 +225,7 @@ class VideoController extends Controller
                 // $sub_category_id = $olddata->subcategory_id;
             }
 
-            $data['category'] = DB::table('categories')->where('parent_type', 0)->where('status', 1)->get();
+            $data['category'] = DB::table('categories')->where('status', 1)->get();
             $data['sub_category'] = DB::table('categories')->where('category_id', $sub_category_id)->first();
             // dd($data);
             return view('/admin/edit-videos', $data);

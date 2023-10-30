@@ -1633,6 +1633,22 @@ public function addFriend(Request $req)
         return response()->json(array('show_country' => $data), 200);
     }
 
+    public function getAllCategories()
+    {
+        $data = DB::table('categories')
+            ->where('status', 1)
+            ->get();
+
+        $myArray = array();
+        foreach ($data as $value) {
+            if (!isset($myArray[$value->parent_type])) {
+                $myArray[$value->parent_type] = array();
+            }
+            $myArray[$value->parent_type][$value->category_name] = $value;
+        }
+        return response()->json($myArray, 200);
+    }
+
     function showCategories()
     {
         $data['category'] = DB::table('categories')

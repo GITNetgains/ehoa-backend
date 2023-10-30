@@ -50,7 +50,7 @@ class VideoController extends Controller
         }else{
             $req->focus_id = $req->focus_id;
         }
-
+        if($validator->fails()){
             return redirect('/admin/videos-create')
                 ->withErrors($validator)
                 ->withInput();

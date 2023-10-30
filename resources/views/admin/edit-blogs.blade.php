@@ -62,7 +62,7 @@
                                                     @foreach ($categorys as $category)
                                                         <option value="{{ $category->category_id }}"
                                                             @if ($category->category_id == $blogs->category_id) selected @endif>
-                                                            {{ $category->category_name }}
+                                                            {{ $category->path }}
                                                         </option>
                                                     @endforeach
                                                 @endisset
@@ -84,7 +84,7 @@
                          <div class="form-group row pb-3">
                             <label class="col-sm-4 control-label text-sm-end pt-2 form-label select-label">Gender  <span class="text-danger">*</span></label>
                             <div class="col-sm-6">
-                            <select name="gender_id[]" multiple id="gender_id" class="form-control select"  required>  
+                            <select name="gender_id[]" multiple id="gender_id" class="form-control select"  required>
                                         <option value="1" @if(in_array(1, explode(',', $blogs->gender_id))) selected @endif >Male</option>
                                         <option value="2" @if(in_array(2, explode(',', $blogs->gender_id))) selected @endif>Female</option>
                                          <option value="3" @if(in_array(3, explode(',', $blogs->gender_id))) selected @endif>Other</option>
@@ -99,7 +99,7 @@
                         <div class="form-group row pb-3">
                             <label class="col-sm-4 control-label text-sm-end pt-2 form-label select-label">Focus  <span class="text-danger">*</span></label>
                             <div class="col-sm-6">
-                            <select name="focus_id[]" multiple id="focus_id" class="form-control select"  required>  
+                            <select name="focus_id[]" multiple id="focus_id" class="form-control select"  required>
                                         <option value="1" @if(in_array(1, explode(',',$blogs->focus_id))) selected @endif >Track menstrual cycle</option>
                                         <option value="2" @if(in_array(2, explode(',',$blogs->focus_id))) selected @endif>Track energy levels</option>
                                     </select>
@@ -113,11 +113,11 @@
                            <div class="form-group row pb-3">
                             <label class="col-sm-4 control-label text-sm-end pt-2 form-label select-label">Language<span class="text-danger">*</span></label>
                             <div class="col-sm-6">
-                            <select name="language_id" id="language_id" class="form-control select"  required>  
-                                
+                            <select name="language_id" id="language_id" class="form-control select"  required>
+
                                         <option value="1" @if(old('language_id',$blogs->language_id == 1)) selected @endif >English</option>
                                         <option value="2" @if(old('language_id',$blogs->language_id == 2)) selected @endif>Māori</option>
-                                         
+
                                     </select>
                                     <span class="text-danger">
                                     @error('language_id')

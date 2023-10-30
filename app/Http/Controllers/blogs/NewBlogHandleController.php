@@ -5,7 +5,7 @@ namespace App\Http\Controllers\blogs;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-use Owenoj\LaravelGetId3\GetId3;
+// use Owenoj\LaravelGetId3\GetId3;
 use App\Models\blogs;
 use App\Models\blog_slides;
 use Illuminate\Support\Facades\Validator;
@@ -52,7 +52,7 @@ class NewBlogHandleController extends Controller
     {
         // $data['energys'] = DB::table('mood_disorders')->where('disorders_type',4)->get();
         $data['categorys'] = DB::table('categories')
-            
+
             ->where('status', 1)
             ->get();
         return view('/admin/new-blogs-create', $data);
@@ -71,12 +71,12 @@ class NewBlogHandleController extends Controller
             ->get();
         // dd($data);
         $data['categorys'] = DB::table('categories')
-            ->where('parent_type', 0)
             ->where('status', 1)
             ->get();
 
         return view('/admin/edit-blogs', $data);
     }
+    
     function EditBlogSlide($id)
     {
         $data['slide'] = DB::table('blog_slides')
@@ -178,6 +178,18 @@ class NewBlogHandleController extends Controller
                 $query->WhereRaw('FIND_IN_SET(?, focus_id)', [$req->focus]);
             });
         }
+
+        // $dataType = gettype($data['blogs']);
+
+        // foreach ($data['blogs'] as $blog) {
+        //     $categ = DB::table('categories')
+        //     ->where('category_id', $blog->category_id)
+        //     ->get();
+        //     dd($categ);
+        //     $blog->path = $categ->path;
+        // }
+
+
         $data['blogs'] = $data['blogs']->paginate(25);
         $data['slides'] = DB::table('blog_slides')
             ->orderBy('slide_id', 'DESC')

@@ -160,7 +160,7 @@ class PackageController extends Controller
         try {
             DB::table('packages')->where('package_id', $package_id)
             ->update(
-                array(                   
+                array(
                     'status' =>3
                 )
             );
@@ -174,7 +174,7 @@ class PackageController extends Controller
         try {
             DB::table('packages')->where('package_id', $package_id)
             ->update(
-                array(                   
+                array(
                     'status' =>1
                 )
             );
@@ -307,7 +307,7 @@ class PackageController extends Controller
         $data['mood_disorders'] = DB::table('mood_disorders')->where('disorders_type', 4)->where('status', 1)->get();
         $data['categorys'] = DB::table('categories')->where('parent_type', 0)->where('status', 1)->get();
         $data['sub_energy']=DB::table('sub_energies')->get();
-       
+
         return view('admin/tips-create', $data);
     }
 
@@ -328,7 +328,7 @@ class PackageController extends Controller
             DB::table('tips')->where('tip_id', $tip_id)
             ->update(
                 array(
-                    'status' => 1,    
+                    'status' => 1,
                 )
             );
             return redirect('/admin/archived-tips')->with('success','Tip Active Successfully');
@@ -343,16 +343,16 @@ function archivedTip(){
         ->paginate(25);
         $data['categories']=DB::table('categories')->where('status',1)->get();
         $data['categ']=DB::table('categories')->where('parent_type',0)->where('status',1)->get();
-      
+
         $data['energy']=DB::table('mood_disorders')->where('disorders_type',4)->where('status',1)->get();
         // dd($data['categories']);
-        return view('admin/archived-tips',$data);   
+        return view('admin/archived-tips',$data);
         } catch (\Exception $exception) {
             $data['error'] = $exception->getMessage();
             return view('error', $data);
         }
 
-    
+
 }
    function saveTips(Request $req)
     {
@@ -367,8 +367,8 @@ function archivedTip(){
         $validator = Validator::make($req->all(), [
             'title' => 'required|string|max:30',
             'energy_id' => 'required',
-            'category_id' => 'required',
-            'subcategory_id' => 'required',
+            // 'category_id' => 'required',
+            // 'subcategory_id' => 'required',
             'image' => 'image|required|mimes:'.$ext.'',
             'description' => 'required|max:250',
             'status' => 'required',
@@ -379,7 +379,7 @@ function archivedTip(){
         ]);
 
         if ($validator->fails()) {
-           
+
             return redirect('/admin/tips-create')
                 ->withErrors($validator)
                 ->withInput();
@@ -403,8 +403,8 @@ function archivedTip(){
             $tip->title = $req->title;
             $tip->energy_id = $req->energy_id;
             $tip->sub_energy_id=$req->sub_energy_id;
-            $tip->category_id = $req->category_id;
-            $tip->subcategory = $req->subcategory_id;
+            // $tip->category_id = $req->category_id;
+            // $tip->subcategory = $req->subcategory_id;
             $tip->language_id = $req->language_id;
             if(is_array($req->gender_id)){
                 $tip->gender_id = implode(',',$req->gender_id);
@@ -421,7 +421,7 @@ function archivedTip(){
                 $bind_settings[$setting->key] = $setting->value;
             }
             if ($bind_settings['tips_image_size'] * 1000 >= $file_image_size) {
-              
+
                     if ($bind_settings['tips_image_width'] >= $image_width_thumb) {
                         if ($bind_settings['tips_image_height'] >= $image_height_thumb) {
                             $tip->image = 'storage/tips_image/' . $file_name_thumb;
@@ -431,7 +431,7 @@ function archivedTip(){
                     } else {
                         return redirect('/admin/tips-create')->with('error', 'The Uploaded Image Width is Too large');
                     }
-                
+
             } else {
                 return redirect('/admin/tips-create')->with('error', 'The Uploaded Image is Too large');
             }
@@ -491,7 +491,7 @@ function archivedTip(){
             DB::table('tips')->where('tip_id', $tip_id)
             ->update(
                 array(
-                    'status' => 3,    
+                    'status' => 3,
                 )
             );
             return redirect('/admin/list-all-tips')->with('success','Tip Archived Successfully');
@@ -505,16 +505,16 @@ function archivedTip(){
     {
 
         // try {
-           
+
         $data['mood_disorders'] = DB::table('mood_disorders')->where('disorders_type', 4)->where('status', 1)->get();
         $data['tips'] = DB::table('tips')->where('tip_id', $tip_id)->get();
         foreach ($data['tips'] as $olddata) {
             $subcategory = $olddata->subcategory;
         }
         $data['sub_energy']=DB::table('sub_energies')->get();
-        $data['sub_category'] = DB::table('categories')->first();
-        $data['category'] = DB::table('categories')->where('parent_type', 0)->where('status', 1)->get();
-        $data['sub_category'] = DB::table('categories')->where('category_id', $subcategory)->first();
+        // $data['sub_category'] = DB::table('categories')->first();
+        // $data['category'] = DB::table('categories')->where('parent_type', 0)->where('status', 1)->get();
+        // $data['sub_category'] = DB::table('categories')->where('category_id', $subcategory)->first();
         return view('/admin/edit-tips', $data);
         // } catch (\Exception $exception) {
         //     $data['error'] = $exception->getMessage();
@@ -552,16 +552,16 @@ function archivedTip(){
         if(isset($req->image)) {
             $validator = Validator::make($req->all(), [
                 'image' => 'image|required|mimes:'.$ext.'',
-               
+
             ]);
-    
+
             if ($validator->fails()) {
-    
+
                 return redirect('/admin/edit-tips/'.$req->tip_id)
                     ->withErrors($validator)
                     ->withInput();
             } else {
-               
+
             $file_thumb = $req->image;
             $file_name = $file_thumb->getClientOriginalName();
             $file_path_thumb = $file_thumb->getRealPath();
@@ -580,7 +580,7 @@ function archivedTip(){
                 $bind_settings[$setting->key] = $setting->value;
             }
             if ($bind_settings['tips_image_size'] * 1000 >= $file_image_size) {
-               
+
                     if ($bind_settings['tips_image_width'] >= $image_width_thumb) {
                         if ($bind_settings['tips_image_height'] >= $image_height_thumb) {
                             DB::table('tips')->where('tip_id', $req->tip_id)
@@ -595,11 +595,11 @@ function archivedTip(){
                     } else {
                         return redirect('/admin/edit-tips/'.$req->tip_id)->with('error', 'The Uploaded Image Width is Too large');
                     }
-                
+
             } else {
                 return redirect('/admin/edit-tips/'.$req->tip_id)->with('error', 'The Uploaded Image is Too large');
             }
-        
+
     }
         }
         if(is_array($req->gender_id)){
@@ -636,10 +636,10 @@ function archivedTip(){
     //     $data['error'] = $exception->getMessage();
     //     return view('/admin/list-all-tips', $data);
     // }
-    
+
 function  SearchCategory (Request $req){
     $search = $req->search;
-    
+
     // dd($search);
     // dd($language);
     if ($search != '') {
@@ -653,7 +653,7 @@ function  SearchCategory (Request $req){
         $data_loop = DB::table('tips')->whereIn('category_id', $ab)->where('status', '!=', 3)->orwhereIn('subcategory', $ab)
             ->orWhere('title', 'like', '%' . $search . '%')
             ->paginate(25);
-          
+
         $categories = DB::table('categories')
             ->where('status', '!=', 3)
             ->get();
@@ -661,7 +661,7 @@ function  SearchCategory (Request $req){
         //   dd($data_loop);
         $data='';
          $i = $data_loop->perPage() * ($data_loop->currentPage() - 1) + 1;
-        foreach ($data_loop as $loop) { 
+        foreach ($data_loop as $loop) {
 
             $data .= '<tr style="" >
                 <td>'. $i++.'</td>
@@ -675,7 +675,7 @@ function  SearchCategory (Request $req){
                             $data.=ucfirst($keyy->category_name);
                           }
                            }
-                
+
                 $data.='</td>
                 <td>';
                 foreach ($categories as $keyy){
@@ -713,7 +713,7 @@ function  SearchCategory (Request $req){
                         onclick="return confirm("Do you really want to delete '.ucfirst($loop->title).'this Tip? ")">Delete</a>
                 </td>
             </tr>';
-        
+
         }
         // dd($data);
 

@@ -76,13 +76,13 @@
 
                     <header class="card-header">
 
-                       
+
 
                         <h2 class="card-title" style="text-align:center">Update Videos</h2>
 
                     </header>
 
-                    <div class="card-body"> 
+                    <div class="card-body">
 
                     @foreach($videos as $vide)
 
@@ -124,7 +124,7 @@
 
                                         <option value="{{$categ->category_id}}" @if($vide->category_id == $categ->category_id) selected @endif >
 
-                                        {{$categ->category_name}}
+                                        {{$categ->path}}
 
                                         </option>
 
@@ -136,11 +136,11 @@
                                 <span class="text-danger">
 
                                     @error('category_id')
-    
+
                                     {{$message}}
-    
+
                                 @enderror
-    
+
                                 </span>
 
                             </div>
@@ -151,7 +151,7 @@
                          <div class="form-group row pb-3">
                             <label class="col-sm-4 control-label text-sm-end pt-2 form-label select-label">Gender  <span class="text-danger">*</span></label>
                             <div class="col-sm-6">
-                            <select name="gender_id[]" multiple id="gender_id" class="form-control select"  required>  
+                            <select name="gender_id[]" multiple id="gender_id" class="form-control select"  required>
                                         <option value="1" @if(in_array(1, explode(',', $vide->gender_id))) selected @endif >Male</option>
                                         <option value="2" @if(in_array(2, explode(',', $vide->gender_id))) selected @endif>Female</option>
                                          <option value="3" @if(in_array(3, explode(',', $vide->gender_id))) selected @endif>Other</option>
@@ -166,7 +166,7 @@
                         <div class="form-group row pb-3">
                             <label class="col-sm-4 control-label text-sm-end pt-2 form-label select-label">Focus  <span class="text-danger">*</span></label>
                             <div class="col-sm-6">
-                            <select name="focus_id[]" multiple id="focus_id" class="form-control select"  required>  
+                            <select name="focus_id[]" multiple id="focus_id" class="form-control select"  required>
                                         <option value="1" @if(in_array(1, explode(',', $vide->focus_id))) selected @endif >Track menstrual cycle</option>
                                         <option value="2" @if(in_array(2, explode(',', $vide->focus_id))) selected @endif>Track energy levels</option>
                                     </select>
@@ -180,11 +180,11 @@
                            <div class="form-group row pb-3">
                             <label class="col-sm-4 control-label text-sm-end pt-2 form-label select-label">Language<span class="text-danger">*</span></label>
                             <div class="col-sm-6">
-                            <select name="language_id" id="language_id" class="form-control select"  required>  
-                                
+                            <select name="language_id" id="language_id" class="form-control select"  required>
+
                                         <option value="1" @if(old('language_id',$vide->language_id == 1)) selected @endif >English</option>
                                         <option value="2" @if(old('language_id',$vide->language_id == 2)) selected @endif>Māori</option>
-                                         
+
                                     </select>
                                     <span class="text-danger">
                                     @error('language_id')
@@ -219,7 +219,7 @@
 
                         </div>  --}}
 
-                    
+
 
                         <div class="form-group row mb-3">
 
@@ -289,7 +289,7 @@
 
                         </div>
 
-                        
+
 
                        {{-- <div class="form-group row mb-3">
 
@@ -315,9 +315,9 @@
 
                         </div> --}}
 
-                        
 
-                       
+
+
 
                         <div class="form-group row pb-3">
 
@@ -325,7 +325,7 @@
 
                             <div class="col-sm-6">
 
-                            <select name="status" id="status" class="form-control select" >  
+                            <select name="status" id="status" class="form-control select" >
 
                                 <option value="" >Choose Status </option>
 
@@ -383,7 +383,7 @@
 
     </div>
 
- 
+
 
 <x-footer/>
 
@@ -391,13 +391,13 @@
 
     $('#category_id').on('change',function(e){
 
-        
+
 
         e.preventDefault();
 
         $('#subcategory_id').html('');
 
-       
+
 
         var category_id  = $('#category_id').val();
 
@@ -411,7 +411,7 @@
 
         } else{
 
-            
+
 
             $('#subcategory_id').html('');
 
@@ -429,7 +429,7 @@
 
              "category_id": category_id,
 
-           
+
 
         },
 
@@ -437,7 +437,7 @@
 
         }).done(function(response) {
 
-         console.log(response.get_data);  
+         console.log(response.get_data);
 
 		 $.each(response.get_data, function(index, element){
 
@@ -447,7 +447,7 @@
 
 		 });
 
-        });	
+        });
 
     });
 

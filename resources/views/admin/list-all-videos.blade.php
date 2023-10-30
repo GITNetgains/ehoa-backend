@@ -71,7 +71,7 @@
                                     @endforeach
                                 @endisset
                             </select>
-                            {{--                            
+                            {{--
                             <button type="submit" onclick="search" class="btn btn-primary mx-1" id="myBtn"><i class="fa fa-search fa-sm" ></i></button> --}}
 
                         </form>
@@ -125,7 +125,6 @@
 
                                 <th>Title</th>
                                 <th>Category</th>
-                                <th>Sub Category</th>
 
                                 <th>Image</th>
 
@@ -154,13 +153,6 @@
                                         <td>
                                             @foreach ($categories as $keyy)
                                                 @if ($keyy->category_id == $key->category_id)
-                                                    {{ ucfirst($keyy->category_name) }}
-                                                @endif
-                                            @endforeach
-                                        </td>
-                                        <td>
-                                            @foreach ($categories as $keyy)
-                                                @if ($keyy->category_id == $key->subcategory_id)
                                                     {{ ucfirst($keyy->category_name) }}
                                                 @endif
                                             @endforeach
@@ -255,14 +247,14 @@
             },
             url: host + '/admin/search-categories',
         }).done(function(response) {
-            console.log(response.get_data);  
+            console.log(response.get_data);
             $('#table_id').html("");
             if(response.get_data == '') {
                 $('#table_id').append("<tr><td colspan='8' class='text-center'>No Videos Found</td></tr>");
             } else {
                $('#table_id').append(response.get_data);
             }
-        //     $.each(response.get_data.data, function(key,values) { 
+        //     $.each(response.get_data.data, function(key,values) {
         //          $('#table_id').append("<tr>\
         //                                 <td>1</td>\
 		// 								<td>"+values.title+"</td>\
@@ -272,8 +264,8 @@
         //                                 <td>"+values.description+"</td>\
         //                                 <td>"+values.status+"</td>\
         //                                 <td style='text-align:center;' class='actions'><a href='/admin/edit-videos/"+values.video_id+"' class='btn-sm btn-edit text-white mx-1 my-1'>Edit</a><a href='/admin/delete-videos/"+values.video_id+"' class='btn-sm btn-del text-white mx-1 my-1 delete-row' >Delete</a></td>\
-        //                                 </tr>");	 
-        // });  
+        //                                 </tr>");
+        // });
     });
 });
 

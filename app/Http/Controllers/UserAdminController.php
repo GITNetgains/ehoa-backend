@@ -1663,18 +1663,29 @@ public function addFriend(Request $req)
 
     function showWisdomBlogs(Request $req)
     {
-        if(is_array($req->focus_id)){
-            $focus_id = implode(',',$req->focus_id);
-        }else{
-            $focus_id = $req->focus_id;
+        $focus_ids = $req->input('focus_id');
+        $category_id = $req->input('category_id');
+        $language_id = $req->input('language_id');
+        // if(is_array($req->focus_id)){
+        //     $focus_id = implode(',',$req->focus_id);
+        // }
+        // $focus_id = [$focus_id];
+        if ($focus_ids === 3) {
+            // Use a specific condition for focus_id equal to 3
+            $data = DB::table('blogs')
+                ->where('category_id', $category_id)
+                ->where('language_id', $language_id)
+                ->where('focus_id', '1,2')
+                ->get();
+        } else {
+            // Use the original condition for other values of focus_id
+            $focus_id = [$focus_ids];
+            $data = DB::table('podcasts')
+                ->where('category_id', $category_id)
+                ->where('language_id', $language_id)
+                ->whereRaw('FIND_IN_SET(?, focus_id)', $focus_id)
+                ->get();
         }
-        $focus_id = [$focus_id];
-        $data = DB::table('blogs')
-        ->whereRaw('FIND_IN_SET(?, focus_id)', [$focus_id])
-        ->where('category_id', $req->category_id)
-        ->where('language_id', $req->language_id)
-        ->where('status', 1)
-        ->get();
         return response()->json(array('show_wisdom_blogs' => $data), 200);
     }
 
@@ -1685,12 +1696,12 @@ public function addFriend(Request $req)
     $language_id = $req->input('language_id');
 
     // Check if $focus_ids is an array
-    if (is_array($focus_ids)) {
-        $focus_ids = implode(',', $focus_ids);
-    }
+    // if (is_array($focus_ids)) {
+    //     $focus_ids = implode(',', $focus_ids);
+    // }
 
     // Check if $focus_ids is equal to 3
-    if ($focus_ids === '3') {
+    if ($focus_ids === 3) {
         // Use a specific condition for focus_id equal to 3
         $data = DB::table('podcasts')
             ->where('category_id', $category_id)
@@ -1718,12 +1729,12 @@ public function addFriend(Request $req)
     $language_id = $req->input('language_id');
 
     // Check if $focus_ids is an array
-    if (is_array($focus_ids)) {
-        $focus_ids = implode(',', $focus_ids);
-    }
+    // if (is_array($focus_ids)) {
+    //     $focus_ids = implode(',', $focus_ids);
+    // }
 
     // Check if $focus_ids is equal to 3
-    if ($focus_ids === '3') {
+    if ($focus_ids === 3) {
         // Use a specific condition for focus_id equal to 3
         $data = DB::table('categories')
             ->leftJoin('videos', 'categories.category_id', '=', 'videos.subcategory_id')
@@ -1735,12 +1746,12 @@ public function addFriend(Request $req)
             ->get();
     } else {
         // Use the original condition for other values of focus_id
-        $focus_id = [$focus_ids];
+        // $focus_id = [$focus_ids];
         $data = DB::table('categories')
             ->leftJoin('videos', 'categories.category_id', '=', 'videos.subcategory_id')
             ->where('categories.category_id', $category_id)
             ->where('language_id', $language_id)
-            ->whereRaw('FIND_IN_SET(?, focus_id)', $focus_id)
+            ->whereRaw('FIND_IN_SET(?, focus_id)', $focus_ids)
             ->where('categories.status', 1)
             ->where('videos.status', 1)
             ->get();

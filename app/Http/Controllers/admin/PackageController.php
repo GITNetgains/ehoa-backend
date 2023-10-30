@@ -508,9 +508,9 @@ function archivedTip(){
 
         $data['mood_disorders'] = DB::table('mood_disorders')->where('disorders_type', 4)->where('status', 1)->get();
         $data['tips'] = DB::table('tips')->where('tip_id', $tip_id)->get();
-        foreach ($data['tips'] as $olddata) {
-            $subcategory = $olddata->subcategory;
-        }
+        // foreach ($data['tips'] as $olddata) {
+        //     $subcategory = $olddata->subcategory;
+        // }
         $data['sub_energy']=DB::table('sub_energies')->get();
         // $data['sub_category'] = DB::table('categories')->first();
         // $data['category'] = DB::table('categories')->where('parent_type', 0)->where('status', 1)->get();
@@ -537,8 +537,8 @@ function archivedTip(){
         $validator = Validator::make($req->all(), [
             'title' => 'required|string|max:30',
             'energy_id' => 'required',
-            'category_id' => 'required',
-            'subcategory_id' => 'required',
+            // 'category_id' => 'required',
+            // 'subcategory_id' => 'required',
             'description' => 'required|max:250',
             // 'expiry' => 'required',
             'status' => 'required',
@@ -621,8 +621,8 @@ function archivedTip(){
                       'gender_id' => $req->gender_id,
                       'focus_id' => $req->focus_id,
                     'sub_energy_id'=>$req->sub_energy_id,
-                    'category_id' => $req->category_id,
-                    'subcategory' => $req->subcategory_id,
+                    // 'category_id' => $req->category_id,
+                    // 'subcategory' => $req->subcategory_id,
                     'description' => $req->description,
                     'expiry' => $req->expiry,
                     'status' => $req->status,

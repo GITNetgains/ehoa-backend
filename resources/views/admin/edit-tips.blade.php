@@ -29,10 +29,10 @@
                 @csrf
                 <section class="card">
                     <header class="card-header">
-                      
+
                         <h2 class="card-title" style="text-align:center">Edit Tips</h2>
                     </header>
-                   
+
                     <div class="card-body">
                         @foreach($tips as $tip)
                     <input type="hidden" name="tip_id" value="{{$tip->tip_id}}">
@@ -53,7 +53,7 @@
                             <label class="col-sm-4 control-label text-sm-end pt-2">Choose Energy <span class="text-danger">*</span></label>
                             <div class="col-sm-6">
                                 <select class="form-control"  id="energy_id" name="energy_id" >
-                                      
+
                                         @isset($mood_disorders)
                                         @foreach($mood_disorders as $energy)
                                         <option value="{{$energy->disorders_id}}" @if($tip->energy_id == $energy->disorders_id) selected @endif >
@@ -73,7 +73,7 @@
                             <label class="col-sm-4 control-label text-sm-end pt-2">Choose Sub Energy </label>
                             <div class="col-sm-6">
                                 <select class="form-control"  id="sub_energy_id" name="sub_energy_id" >
-                                      
+
                                         @isset($sub_energy)
                                         @foreach($sub_energy as $energy)
                                         <option value="{{$energy->sub_energy_id}}" @if($tip->sub_energy_id == $energy->sub_energy_id) selected @endif >
@@ -82,11 +82,11 @@
                                         @endforeach
                                         @endisset
                                 </select>
-                                
+
                             </div>
                         </div>
 
-                        <div class="form-group row pb-3">
+                        {{-- <div class="form-group row pb-3">
                             <label class="col-sm-4 control-label text-sm-end pt-2">Category Name <span class="text-danger">*</span></label>
                             <div class="col-sm-6">
                                 <select class="form-control"  id="category_id" name="category_id">
@@ -104,11 +104,12 @@
                                 @enderror
                                 </span>
                             </div>
-                        </div>
+                        </div> --}}
+
                         <div class="form-group row pb-3">
                             <label class="col-sm-4 control-label text-sm-end pt-2 form-label select-label">Gender  <span class="text-danger">*</span></label>
                             <div class="col-sm-6">
-                            <select name="gender_id[]" multiple id="gender_id" class="form-control select"  required>  
+                            <select name="gender_id[]" multiple id="gender_id[]" class="form-control select"  required>
                                         <option value="1" @if(in_array(1, explode(',', $tip->gender_id))) selected @endif >Male</option>
                                         <option value="2" @if(in_array(2, explode(',', $tip->gender_id))) selected @endif>Female</option>
                                          <option value="3" @if(in_array(3, explode(',', $tip->gender_id))) selected @endif>Other</option>
@@ -123,7 +124,7 @@
                         <div class="form-group row pb-3">
                             <label class="col-sm-4 control-label text-sm-end pt-2 form-label select-label">Focus  <span class="text-danger">*</span></label>
                             <div class="col-sm-6">
-                            <select name="focus_id[]" multiple id="focus_id" class="form-control select"  required>  
+                            <select name="focus_id[]" multiple id="focus_id[]" class="form-control select"  required>
                                         <option value="1" @if(in_array(1, explode(',', $tip->focus_id))) selected @endif >Track menstrual cycle</option>
                                         <option value="2" @if(in_array(2, explode(',', $tip->focus_id))) selected @endif>Track energy levels</option>
                                     </select>
@@ -137,11 +138,11 @@
                            <div class="form-group row pb-3">
                             <label class="col-sm-4 control-label text-sm-end pt-2 form-label select-label">Language<span class="text-danger">*</span></label>
                             <div class="col-sm-6">
-                            <select name="language_id" id="language_id" class="form-control select"  required>  
-                                
+                            <select name="language_id" id="language_id" class="form-control select"  required>
+
                                         <option value="1" @if(old('language_id',$tip->language_id == 1)) selected @endif >English</option>
                                         <option value="2" @if(old('language_id',$tip->language_id == 2)) selected @endif>Māori</option>
-                                         
+
                                     </select>
                                     <span class="text-danger">
                                     @error('language_id')
@@ -150,7 +151,8 @@
                                 </span>
                             </div>
                         </div>
-                        <div class="form-group row pb-3">
+
+                        {{-- <div class="form-group row pb-3">
                             <label class="col-sm-4 control-label text-sm-end pt-2">Sub-Category Name <span class="text-danger">*</span></label>
                             <div class="col-sm-6">
                                 <select class="form-control"  id="subcategory_id" name="subcategory_id">
@@ -162,8 +164,8 @@
                             @enderror
                             </span>
                             </div>
-                        </div>
-                    
+                        </div> --}}
+
 
                         <div class="form-group row mb-3">
                             <label class="col-sm-4 control-label text-sm-end pt-2">Tips Image <span class="text-danger">*</span></label>
@@ -176,7 +178,7 @@
                                 </span>
                                 <img class="my-3" src="{{env('APP_URL')}}/{{old('image',$tip->image)}}" alt="" style="height:58px;border-radius:6px;">
                             </div>
-                            
+
                         </div>
 
                         <div class="form-group row pb-3">
@@ -188,13 +190,13 @@
                                     {{$message}}
                                 @enderror
                                 </span>
-                               
+
                             </div>
                         </div>
 
-                 
 
-                      
+
+
 
                         <div class="form-group row mb-3">
                             <label class="col-sm-4 control-label text-sm-end pt-2"> Status</label>
@@ -203,7 +205,7 @@
                                         <option value="">Choose Status</option>
                                         <option value="1"  @if(old('status',$tip->status == 1))  selected @endif >Active</option>
                                         <option value="2"  @if(old('status',$tip->status == 2))  selected @endif>In-active</option>
-                                       
+
                                 </select>
                                 <span class="text-danger">
                                     @error('status')
@@ -232,17 +234,17 @@
 
 <script>
     $('#category_id').on('change',function(e){
-        
+
         e.preventDefault();
         $('#subcategory_id').html('');
-       
+
         var category_id  = $('#category_id').val();
     //  alert (category_id );
         if(category_id ==''){
             var data=' <option value="">Choose sub category</option>';
 	       $('#subcategory_id').append(data);
         } else{
-            
+
             $('#subcategory_id').html('');
         }
         var host = "{{URL::to('/')}}";
@@ -251,16 +253,16 @@
             data: {
             "_token": "{{ csrf_token() }}",
              "category_id": category_id,
-           
+
         },
          url: host+'/admin/get-tips-sub-categories',
         }).done(function(response) {
-         console.log(response.get_data);  
+         console.log(response.get_data);
 		 $.each(response.get_data, function(index, element){
             var data=' <option value="'+element.category_id +'">'+element.category_name+'</option>';
 	       $('#subcategory_id').append(data);
 		 });
-        });	
+        });
     });
     $(function(){
     var dtToday = new Date();

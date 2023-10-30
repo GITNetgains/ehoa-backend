@@ -75,7 +75,7 @@
 
                     <header class="card-header">
 
-                       
+
 
                         <h2 class="card-title" style="text-align:center">Create Videos</h2>
 
@@ -178,7 +178,7 @@
                          <div class="form-group row mb-3">
                             <label class="col-sm-4 control-label text-sm-end pt-2">Gender <span class="text-danger">*</span></label>
                             <div class="col-sm-6">
-                                <select name="gender_id[]" multiple  id="gender_id" value="{{ old('gender_id')}}" class="form-control select" >
+                                <select name="gender_id[]" multiple  id="gender_id" value="{{ old('gender_id[]')}}" class="form-control select" >
                                     <option value="">Choose Gender</option>
                                     <option value="1" @if( old('gender_id')==1) selected @endif>Male</option>
                                     <option value="2" @if( old('gender_id')==2) selected @endif>Female</option>
@@ -221,7 +221,7 @@
                                 </span>
                             </div>
                         </div>
-                       
+
 
 
                         <div class="form-group row mb-3">
@@ -290,7 +290,7 @@
 
                         </div>
 
-                        
+
 
                     {{--    <div class="form-group row mb-3">
 
@@ -314,9 +314,9 @@
 
                         </div> --}}
 
-                        
 
-                       
+
+
 
                         <div class="form-group row pb-3">
 
@@ -324,7 +324,7 @@
 
                             <div class="col-sm-6">
 
-                            <select name="status" id="status" value="{{ old('status')}}"  class="form-control select" >  
+                            <select name="status" id="status" value="{{ old('status')}}"  class="form-control select" >
 
                                 <option value="" >Choose Status</option>
 
@@ -382,7 +382,7 @@
 
     </div>
 
- 
+
 
 <x-footer/>
 
@@ -390,13 +390,13 @@
 
     $('#category_id').on('change',function(e){
 
-        
+
 
         e.preventDefault();
 
         $('#subcategory_id').html('');
 
-       
+
 
         var category_id  = $('#category_id').val();
 
@@ -410,7 +410,7 @@
 
         } else{
 
-            
+
 
             $('#subcategory_id').html('');
 
@@ -428,7 +428,7 @@
 
              "category_id": category_id,
 
-           
+
 
         },
 
@@ -436,7 +436,7 @@
 
         }).done(function(response) {
 
-         console.log(response.get_data);  
+         console.log(response.get_data);
 
 		 $.each(response.get_data, function(index, element){
 
@@ -446,7 +446,7 @@
 
 		 });
 
-        });	
+        });
 
     });
 

@@ -29,7 +29,7 @@
     <div class="col-lg-12 m-auto mb-2">
         <section class="card">
             <header class="card-header">
-               
+
 
                 <h2 class="card-title"  style="text-align:center;">List Blogs</h2>
 
@@ -74,6 +74,7 @@
                         <tr>
                             <th width="10%">Sr.No</th>
                             <th style="text-align:center;" width="20%">Title</th>
+                            {{-- <th style="text-align:center;" width="20%">Category Path</th> --}}
                             <th style="text-align:center;">Image</th>
                             <th style="text-align:center;" width="30%">Description</th>
                             <th style="text-align:center;">Status</th>
@@ -88,10 +89,11 @@
                                     <tr>
                                         <td>{{ $i++ }}</td>
                                         <td>{{ $blog->title }}</td>
+                                        {{-- <td>{{ $blog->path }}</td> --}}
                                         <td style="text-align:center;"><img src="{{ env('APP_URL') }}/{{ $blog->image }}"
                                                 style="height:40px;border-radius:6px;"></td>
                                         <td>{{ $blog->description }}</td>
-                                        
+
                                         <td style="text-align:center;">
                                             @if ($blog->status == 2)
                                                 <span class="badge text-danger badge-dan  d-inline">In-active</span> @endif
@@ -106,7 +108,7 @@
                                     <a href="/admin/delete-blog/{{ $blog->blog_id }}" class=" btn-sm btn-del text-white mx-1 my-1 delete-row"
                                         onclick="return confirm('Do you really want to delete {{$blog->title}} this Blogs?')">Delete</a>
                                     </td>
-                                        
+
                                     {{-- </tr>
                                     @isset($slides)
                                         @foreach ($slides as $slide)
@@ -140,7 +142,7 @@
                                     @endisset---}}
                                 @endforeach
                                 @else
-                                <tr> 
+                                <tr>
                                     <td colspan="7" class="text-center">No Blog Found</td>
                                 </tr>
                             @endif
@@ -150,7 +152,7 @@
 
                 </table>
                 </div>
-                
+
                 {!! $blogs->links('vendor.pagination.custom') !!}
             </div>
 

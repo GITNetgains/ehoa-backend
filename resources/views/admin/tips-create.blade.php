@@ -31,7 +31,7 @@
 
                 <section class="card">
                     <header class="card-header">
-                      
+
                         <h2 class="card-title" style="text-align:center;">Create Tips</h2>
                     </header>
                     <div class="card-body">
@@ -82,10 +82,10 @@
                                         @endforeach
                                         @endisset
                                 </select>
-                               
+
                             </div>
                         </div>
-                       
+
 
                          <div class="form-group row mb-3">
                             <label class="col-sm-4 control-label text-sm-end pt-2">Language <span class="text-danger">*</span></label>
@@ -102,15 +102,15 @@
                                 </span>
                             </div>
                         </div>
-                       
 
 
-                        <div class="form-group row pb-3">
+
+                        {{-- <div class="form-group row pb-3">
                             <label class="col-sm-4 control-label text-sm-end pt-2">Name <span class="text-danger">*</span></label>
                             <div class="col-sm-6">
                                 <select class="form-control"   value="{{old('category_id')}}" id="category_id" name="category_id">
                                         <option value="">Choose Category</option>
-                                        
+
                                         @isset($categorys)
                                         @foreach($categorys as $category)
                                         <option value="<?php if($category->status==1){echo $category->category_id;} else{} ?>">
@@ -127,7 +127,7 @@
                             </div>
                         </div>
 
-                       
+
 
                         <div class="form-group row pb-3">
                             <label class="col-sm-4 control-label text-sm-end pt-2">Sub-Category <span class="text-danger">*</span></label>
@@ -141,8 +141,8 @@
                             @enderror
                             </span>
                             </div>
-                           
-                        </div>
+
+                        </div> --}}
 
                       <div class="form-group row mb-3">
     <label class="col-sm-4 control-label text-sm-end pt-2">Image <span class="text-danger">*</span></label>
@@ -159,7 +159,7 @@
 
 
 
-                    
+
 
                         <div class="form-group row pb-3">
                             <label class="col-sm-4 control-label text-sm-end pt-2 form-label select-label">Description <span class="text-danger">*</span></label>
@@ -170,7 +170,7 @@
                                     {{$message}}
                                 @enderror
                                 </span>
-                              
+
                             </div>
                         </div>
                         <div class="form-group row mb-3">
@@ -204,8 +204,8 @@
                                 </span>
                             </div>
                         </div>
-                       
-                        
+
+
 
                         <div class="form-group row mb-3">
                             <label class="col-sm-4 control-label text-sm-end pt-2">Status <span class="text-danger">*</span></label>
@@ -241,17 +241,17 @@
 
 <script>
     $('#category_id').on('change',function(e){
-        
+
         e.preventDefault();
         $('#subcategory_id').html('');
-       
+
         var category_id  = $('#category_id').val();
     //  alert (category_id );
         if(category_id ==''){
             var data=' <option value="">Choose sub category</option>';
 	       $('#subcategory_id').append(data);
         } else{
-            
+
             $('#subcategory_id').html('');
         }
         var host = "{{URL::to('/')}}";
@@ -260,16 +260,16 @@
             data: {
             "_token": "{{ csrf_token() }}",
              "category_id": category_id,
-           
+
         },
          url: host+'/admin/get-tips-sub-categories',
         }).done(function(response) {
-         console.log(response.get_data);  
+         console.log(response.get_data);
 		 $.each(response.get_data, function(index, element){
             var data=' <option value="'+element.category_id +'">'+element.category_name+'</option>';
 	       $('#subcategory_id').append(data);
 		 });
-        });	
+        });
     });
     $(function(){
     var dtToday = new Date();

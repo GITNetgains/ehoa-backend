@@ -33,24 +33,26 @@ class VideoController extends Controller
             'language_id' => 'required',
             'gender_id' => 'required',
             'focus_id' => 'required',
-            'subcategory_id' => 'required',
+            // 'subcategory_id' => 'required',
             'description' => 'required|string|max:250',
             'thumbnails' => 'image|required|mimes:' . $ext . '',
             'status' => 'required',
             'file_url' => 'required'
         ]);
-if(is_array($req->gender_id)){
+        if(is_array($req->gender_id)){
             $req->gender_id = implode(',',$req->gender_id);
         }else{
             $req->gender_id = $req->gender_id;
         }
+
         if(is_array($req->focus_id)){
             $req->focus_id = implode(',',$req->focus_id);
         }else{
             $req->focus_id = $req->focus_id;
         }
-        if ($validator->fails()) {
 
+        if ($validator->fails()) {
+            dd($validator->errors());
             return redirect('/admin/videos-create')
                 ->withErrors($validator)
                 ->withInput();
@@ -62,7 +64,7 @@ if(is_array($req->gender_id)){
             $videos->language_id = $req->language_id;
             $videos->gender_id = $req->gender_id;
             $videos->focus_id = $req->focus_id;
-            $videos->subcategory_id = $req->subcategory_id;
+            // $videos->subcategory_id = $req->subcategory_id;
             $videos->description = $req->description;
             // $videos->video_length= 'null';
             if (isset($req->video) || isset($req->file_url)) {
@@ -91,7 +93,7 @@ if(is_array($req->gender_id)){
                             ->withErrors($validator)
                             ->withInput();
                     }
-                    
+
                     $file_video = $req->video;
                     $getID3 = new GetID3($file_video);
                     $file_vedio_path = $file_video->getRealPath();
@@ -109,7 +111,7 @@ if(is_array($req->gender_id)){
                     $original_name_video = strtolower(trim($req->video->getClientOriginalName()));
                     $file_name_v = time() . rand(100, 999) . str_replace(' ', '-', $original_name_video);
                     $file_video->move($destinationPath, $file_name_v);
-              
+
                     if($bind_settings['vedio_vedio_size'] * 1000 >= $video_size) {
                             if ($bind_settings['vedio_vedio_width'] >= $video_width) {
                                 if ($bind_settings['vedio_vedio_height'] >= $video_height) {
@@ -124,7 +126,7 @@ if(is_array($req->gender_id)){
                             } else {
                                 return redirect('/admin/videos-create')->with('error', 'The Uploaded Video Height is Too large');
                             }
-                        
+
                     } else {
                         return redirect('/admin/videos-create')->with('error', 'The Uploaded Video Size is Too large');
                     }
@@ -134,7 +136,7 @@ if(is_array($req->gender_id)){
             } else {
                 return redirect('/admin/videos-create')->with('error', 'Video url feild is required');
             }
-            
+
             $file_thumb = $req->thumbnails;
             $file_name = $file_thumb->getClientOriginalName();
             $file_path_thumb = $file_thumb->getRealPath();
@@ -168,14 +170,14 @@ if(is_array($req->gender_id)){
             } else {
                 return redirect('/admin/videos-create')->with('error', 'The Uploaded Image is Too large');
             }
-          
+
             $videos->status = $req->status;
-          
+
             $videos->save();
             return redirect('/admin/list-all-videos')->with('success', 'New Video added List Successfully');
         }
         }
-   
+
 
     function videosList(Request $req)
     {
@@ -220,7 +222,7 @@ if(is_array($req->gender_id)){
                 ->where('video_id', $video_id)
                 ->get();
             foreach ($data['videos'] as $olddata) {
-                $sub_category_id = $olddata->subcategory_id;
+                // $sub_category_id = $olddata->subcategory_id;
             }
 
             $data['category'] = DB::table('categories')->where('parent_type', 0)->where('status', 1)->get();
@@ -247,7 +249,7 @@ if(is_array($req->gender_id)){
         $validator = Validator::make($req->all(), [
             'title' => 'required|max:30',
             'category_id' => 'required',
-            'subcategory_id' => 'required',
+            // 'subcategory_id' => 'required',
             'description' => 'required|string|max:250',
             'thumbnails' => 'image|mimes:' . $ext . '',
             'status' => 'required',
@@ -277,7 +279,7 @@ if(is_array($req->gender_id)){
                         'language_id' => $req->language_id,
                         'gender_id' => $req->gender_id,
                         'focus_id' => $req->focus_id,
-                        'subcategory_id' => $req->subcategory_id,
+                        // 'subcategory_id' => $req->subcategory_id,
                         'description' => $req->description,
                         'status' => $req->status,
 
@@ -332,7 +334,7 @@ if(is_array($req->gender_id)){
                 //     $file_video->move($destinationPath, $file_name_v);
                 //     // DB::table('videos')->where('video_id', $req->id)->update(
                 //     //     array(
-                           
+
                 //     //         'video_length' => $play_time,
                 //     //     )
                 //     // );
@@ -437,7 +439,8 @@ if(is_array($req->gender_id)){
             foreach ($category as $key) {
                 array_push($ab, $key->category_id);
             }
-            $data_loop = DB::table('videos')->whereIn('category_id', $ab)->where('status', 1)->orwhereIn('subcategory_id', $ab)
+            $data_loop = DB::table('videos')->whereIn('category_id', $ab)->where('status', 1)
+            // ->orwhereIn('subcategory_id', $ab)
                 ->orWhere('title', 'like', '%' . $search . '%')
                 ->paginate(25);
             $categories = DB::table('categories')
@@ -446,7 +449,7 @@ if(is_array($req->gender_id)){
             //   dd($data_loop);
             $data='';
              $i = $data_loop->perPage() * ($data_loop->currentPage() - 1) + 1;
-            foreach ($data_loop as $loop) { 
+            foreach ($data_loop as $loop) {
 
                 $data .= '<tr style="" >
                     <td>'. $i++.'</td>
@@ -458,7 +461,7 @@ if(is_array($req->gender_id)){
                                 $data.=ucfirst($keyy->category_name);
                               }
                                }
-                    
+
                     $data.='</td>
                     <td>';
                     foreach ($categories as $keyy){
@@ -491,7 +494,7 @@ if(is_array($req->gender_id)){
                             onclick="return confirm("Do you really want to delete '.ucfirst($loop->title).'this Video? ")">Delete</a>
                     </td>
                 </tr>';
-            
+
             }
             // dd($data);
 

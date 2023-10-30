@@ -58,7 +58,7 @@ class UserAdminController extends Controller
             $data['error'] = $exception->getMessage();
         }
     }
-    function addAdmin(){        
+    function addAdmin(){
             return view('admin/add-admin-user');
     }
     function createAdmin(Request $req)
@@ -170,12 +170,12 @@ class UserAdminController extends Controller
         } else {
 
             $token = Str::random(64);
-            //  $CHECK variable will check that if the email exists and count in database 
+            //  $CHECK variable will check that if the email exists and count in database
             $check = DB::table('users')
                 ->where('email', $req->email)
                 ->where('is_social', 1)
                 ->count();
-            // if email exists with social status 1 then it will return a token to the user 
+            // if email exists with social status 1 then it will return a token to the user
             if ($check > 0) {
                 DB::table('users')->where('email', $req->email)->update(
                     array(
@@ -825,16 +825,16 @@ public function addFriend(Request $req)
 // end of function
 
 
-     // newly created 
+     // newly created
      function saveEnergy(Request $req)
     {
-        
+
         try {
-            
+
             $validator = Validator::make($req->all(), [
-                
+
                 'energy' => 'required',
-                
+
                 'date' => 'required',
             ]);
 
@@ -847,9 +847,9 @@ public function addFriend(Request $req)
                     ->where('user_id', $req->user_id)
                     ->where('date', $req->date)
                     ->count();
-               
+
                 if ($check > 0) {
-                    
+
                     DB::table('user_symptoms')
                         ->where('user_id', $req->user_id)
                         ->where('date', $req->date)
@@ -861,12 +861,12 @@ public function addFriend(Request $req)
                             )
                         );
                 } else {
-                   
+
                     $symp = new user_symptoms;
                     $symp->user_id= $req->user_id;
-                    
+
                     $symp->energy = $req->energy;
-                   
+
                     $symp->date = $req->date;
                     $symp->save();
                 }
@@ -891,11 +891,11 @@ public function addFriend(Request $req)
                 ->first();
             // dd($data->user_symptom_id);
             $new_data = array(
-                
+
                 'user_id' => $data->user_id,
-                
+
                 'energy' => $data->energy,
-                
+
                 'date' => $data->date
             );
         } else {
@@ -915,7 +915,7 @@ public function addFriend(Request $req)
         return response()->json(array('showIs_pro' => $new_data), 200);
     }
     // end
-    // newly created 
+    // newly created
     function getTips(Request $req)
 {
     $focus_ids = $req->input('focus_id');
@@ -1103,7 +1103,7 @@ public function addFriend(Request $req)
     // end
   // newly created function
     public function saveIs_pro(Request $req)
-    {      
+    {
         DB::table('users')
                             ->where('user_id', $req->user_id)
                             ->update(
@@ -1669,16 +1669,12 @@ public function addFriend(Request $req)
             $focus_id = $req->focus_id;
         }
         $focus_id = [$focus_id];
-        // dd($category_id);
-        $data = DB::table('categories')
-            ->leftJoin('blogs', 'categories.category_id', '=', 'blogs.subcategory_id')
-            ->leftJoin('blog_slides', 'blogs.blog_id', '=', 'blog_slides.blog_id')
-            ->where('categories.category_id', $req->category_id)
-            ->where('language_id', $req->language_id)
-            ->whereRaw('FIND_IN_SET(?, focus_id)', [$focus_id])
-            ->where('categories.status', 1)
-            ->where('blogs.status', 1)
-            ->get();
+        $data = DB::table('blogs')
+        ->whereRaw('FIND_IN_SET(?, focus_id)', [$focus_id])
+        ->where('category_id', $req->category_id)
+        ->where('language_id', $req->language_id)
+        ->where('status', 1)
+        ->get();
         return response()->json(array('show_wisdom_blogs' => $data), 200);
     }
 
@@ -1769,7 +1765,7 @@ public function addFriend(Request $req)
         return response()->json(array('show_latest_tips' => $data), 200);
     }
 
-    
+
 
     function showTipsCategory($tip_id)
     {
@@ -2006,7 +2002,7 @@ public function addFriend(Request $req)
     return response()->json(array('show_moon_phases' => $data), 200);
 }
 
-    
+
 
     function updateUsers(Request $req)
     {
@@ -2084,7 +2080,7 @@ public function addFriend(Request $req)
                         $message->to($req->email, "Rest Password");
 
                         $message->subject('Reset Password');
-                       
+
                     });
                 } else {
                     return response()->json(['error' => ' We are unable to find any user linked with this email address. Please try again with registered email address.'], 401);
@@ -2115,8 +2111,8 @@ public function addFriend(Request $req)
     $user = User::where('email', $request->email)
         ->update(['password' => Hash::make($request->password)]);
     DB::table('password_resets')->where(['email' => $request->email])->delete();
-    
-    
+
+
     echo '<script>alert("Your password has been changed!");</script>';
 
     // return redirect('/your-original-page')->with('message', 'Your password has been changed!');

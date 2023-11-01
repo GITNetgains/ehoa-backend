@@ -1702,7 +1702,29 @@ public function addFriend(Request $req)
                 ->whereRaw('FIND_IN_SET(?, focus_id)', $focus_ids)
                 ->get();
         }
-        return response()->json(array('show_wisdom_blogs' => $data), 200);
+
+        $newdata = array('show_wisdom_blogs' => $data);
+
+        // for ($i = 0; $i < count($newdata); $i++) {
+        //     $newdata[$i]['map'] = DB::table('blog_slides')
+        //             ->where('blog_id', $newdata[$i]['blog_id'])
+        //             ->get();
+        // }
+
+        // $result = DB::table('blogs')
+        // ->join('blog_slides', 'blogs.blog_id', '=', 'blog_slides.blog_id')
+        // ->select('blogs.*', 'blog_slides.*')
+        // ->get();
+
+        foreach ($newdata['show_wisdom_blogs'] as $blog) {
+            $blog->map = DB::table('blog_slides')
+                        ->where('blog_id', $blog->blog_id)
+                        ->get();
+        }
+
+        // print_r($newdata['show_wisdom_blogs'][0]);
+
+        return response()->json($newdata, 200);
     }
 
     function showWisdomPodcasts(Request $req)

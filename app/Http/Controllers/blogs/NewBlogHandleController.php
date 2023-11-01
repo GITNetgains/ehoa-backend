@@ -52,7 +52,6 @@ class NewBlogHandleController extends Controller
     {
         // $data['energys'] = DB::table('mood_disorders')->where('disorders_type',4)->get();
         $data['categorys'] = DB::table('categories')
-
             ->where('status', 1)
             ->get();
         return view('/admin/new-blogs-create', $data);
@@ -76,7 +75,7 @@ class NewBlogHandleController extends Controller
 
         return view('/admin/edit-blogs', $data);
     }
-    
+
     function EditBlogSlide($id)
     {
         $data['slide'] = DB::table('blog_slides')

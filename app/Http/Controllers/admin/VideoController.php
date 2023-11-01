@@ -7,7 +7,7 @@ use App\Models\videos;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
-use Owenoj\LaravelGetId3\GetId3;
+// use Owenoj\LaravelGetId3\GetId3;
 
 class VideoController extends Controller
 {
@@ -224,7 +224,7 @@ class VideoController extends Controller
             }
 
             $data['category'] = DB::table('categories')->where('status', 1)->get();
-            $data['sub_category'] = DB::table('categories')->where('category_id', $sub_category_id)->first();
+            // $data['sub_category'] = DB::table('categories')->where('category_id', $sub_category_id)->first();
             // dd($data);
             return view('/admin/edit-videos', $data);
         } catch (\Exception $exception) {

@@ -161,6 +161,7 @@
                                 @enderror
 
                                 </span>
+				<span style="font-size: 12px;">Upload an image (1:1 ratio or 450px x 450px)</span>
 
                             </div>
 

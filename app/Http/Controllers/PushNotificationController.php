@@ -78,7 +78,7 @@ class PushNotificationController extends Controller
                $user->save();
                $last= DB::getPdo()->lastInsertId();
                $data['users']=DB::table('users')->where('user_notification_status',1)->where('status',1)->get();
-               foreach($req->user_idas $users){
+               foreach($req->user_id as $users){
                  foreach($data['users'] as $users_data){
                       if($users_data->user_id== $users){
                         $usersend= new users_send_notifications;
@@ -197,7 +197,7 @@ function Noticationundo($push_notification_id){
                  ));  
                  $data['users']=DB::table('users')->where('user_notification_status',1)->where('status',1)->get();
                  DB::table('users_send_notifications')->where('notification_id',$req->id)->delete();
-                 foreach($req->user_idas $users){
+                 foreach($req->user_id as $users){
                   foreach($data['users'] as $users_data){
                      if($users_data->user_id== $users){
                   $usersend= new users_send_notifications;

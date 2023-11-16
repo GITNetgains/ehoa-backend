@@ -761,26 +761,26 @@ public function addFriend(Request $req)
                                 );
                         }
                         // Adding 3 entries in cycles table
-                        try {
-                            // echo $req->user_id;
-                            $symp1 = new cycles;
-                            $symp1->user_id= $req->user_id;
-                            $symp1->month_id = 1;
-                            $symp1->cycle_start_date = $req->period_day;
-                            $symp1->save();
+                        // try {
+                        //     // echo $req->user_id;
+                        //     $symp1 = new cycles;
+                        //     $symp1->user_id= $req->user_id;
+                        //     $symp1->month_id = 1;
+                        //     $symp1->cycle_start_date = $req->period_day;
+                        //     $symp1->save();
 
-                            $symp2 = new cycles;
-                            $symp2->user_id= $req->user_id;
-                            $symp2->month_id = 2;
-                            $symp2->save();
+                        //     // $symp2 = new cycles;
+                        //     // $symp2->user_id= $req->user_id;
+                        //     // $symp2->month_id = 2;
+                        //     // $symp2->save();
 
-                            $symp3 = new cycles;
-                            $symp3->user_id= $req->user_id;
-                            $symp3->month_id = 3;
-                            $symp3->save();
-                        } catch (\Exception $exception) {
-                            // $data['error'] = $exception->getMessage();
-                        }
+                        //     // $symp3 = new cycles;
+                        //     // $symp3->user_id= $req->user_id;
+                        //     // $symp3->month_id = 3;
+                        //     // $symp3->save();
+                        // } catch (\Exception $exception) {
+                        //     // $data['error'] = $exception->getMessage();
+                        // }
 
                         // Updating pronoun
                         if (isset($req->pronoun_id) && !isset($req->custom_pronoun)) {
@@ -1231,9 +1231,24 @@ public function addFriend(Request $req)
             ->orderBy('month_id', 'asc')
             ->select('month_id', 'cycle_start_date', 'cycle_end_date')
             ->get();
+
+        if(count($data) === 0) {
+            $symp1 = new cycles;
+            $symp1->user_id= $req->user_id;
+            $symp1->month_id = 1;
+
+            $user = DB::table('users')->where('user_id', $req->user_id)->first();
+            
+            $symp1->cycle_start_date = $user->period_day;
+            $symp1->cycle_end_date = date('Y-m-d', strtotime($dateString . ' + ' . $user->average_cycle_days . ' days'));;
+            $symp1->save();
+        }
+
+        
         return response()->json(array('cycles' => $data), 200);
     }
     // end
+
     function saveCountries(Request $req)
     {
         try {

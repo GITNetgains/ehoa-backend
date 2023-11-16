@@ -1234,17 +1234,16 @@ public function addFriend(Request $req)
 
         if(count($data) === 0) {
             $symp1 = new cycles;
-            $symp1->user_id= $req->user_id;
+            $symp1->user_id= $user_id;
             $symp1->month_id = 1;
 
-            $user = DB::table('users')->where('user_id', $req->user_id)->first();
+            $user = DB::table('users')->where('user_id', $user_id)->first();
             
             $symp1->cycle_start_date = $user->period_day;
             $symp1->cycle_end_date = date('Y-m-d', strtotime($dateString . ' + ' . $user->average_cycle_days . ' days'));;
             $symp1->save();
         }
 
-        
         return response()->json(array('cycles' => $data), 200);
     }
     // end

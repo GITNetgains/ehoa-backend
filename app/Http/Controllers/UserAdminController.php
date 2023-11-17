@@ -1250,11 +1250,8 @@ public function addFriend(Request $req)
             ->orderBy('month_id', 'desc')
             ->first();
             $symp1->month_id = $cycle->month_id+1;
-            
-            if($user_data) {
-                $symp1->cycle_start_date = $req->cycle_start_date;
-                $symp1->cycle_end_date = $req->cycle_end_date;
-            }
+            $symp1->cycle_start_date = $req->cycle_start_date;
+            $symp1->cycle_end_date = $req->cycle_end_date;
             $symp1->save();
             return response()->json(['Succuss' => 'updated Period date Successfully'], 200);
         } catch (\Exception $exception) {

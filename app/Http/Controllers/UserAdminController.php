@@ -1230,7 +1230,7 @@ public function addFriend(Request $req)
             ->where('user_id', $user_id)
             ->count();
 
-        if(cnt == 0) {
+        if($cnt == 0) {
             $symp1 = new cycles;
             $symp1->user_id = $user_id;
             $symp1->month_id = 1;

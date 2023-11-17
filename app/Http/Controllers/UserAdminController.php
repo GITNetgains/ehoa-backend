@@ -1260,7 +1260,7 @@ public function addFriend(Request $req)
         } catch (\Exception $exception) {
             $data['error'] = $exception->getMessage();
         }
-        return response()->json(['error' => 'Something went wrong'], 401);
+        return response()->json(['error' => $exception->getMessage()], 401);
     }
     // end
     // newly created

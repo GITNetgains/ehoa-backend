@@ -1227,6 +1227,7 @@ public function addFriend(Request $req)
     public function getCycles($user_id)
     {
         $data = DB::table('cycles')
+	    ->orderBy('month_id', 'desc')
             ->where('user_id', $user_id)
             ->get();
 
@@ -1236,7 +1237,7 @@ public function addFriend(Request $req)
             $symp1->month_id = 1;
 
             $user_data = DB::table('users')->where('user_id', $user_id)->first();
-            
+
             if($user_data) {
                 $symp1->cycle_start_date = $user_data->period_day;
                 $symp1->cycle_end_date = date('Y-m-d', strtotime($user_data->period_day . ' + ' . $user_data->average_cycle_days . ' days'));

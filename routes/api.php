@@ -51,6 +51,7 @@ Route::get('/show-reminders/{user_id}', [UserAdminController::class, 'showRemind
 Route::get('/save-reminders/{status}/{user_id}/{r_type}/{scheduled}/{fcm_token}', [UserAdminController::class, 'saveReminders']);
 Route::get('/save-status/{status}/{user_id}/{r_type}', [UserAdminController::class, 'saveStatus']);
 Route::post('/update-period_day', [UserAdminController::class, 'updatePeriod_day']);
+Route::post('/update-period-range', [UserAdminController::class, 'updatePeriodRange']);
 Route::get('/get-cycles/{user_id}', [UserAdminController::class, 'getCycles']);
 
 Route::post('/add-friend', [UserAdminController::class, 'addFriend']);

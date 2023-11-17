@@ -1121,103 +1121,141 @@ public function addFriend(Request $req)
     }
     // end
      // newly created
+    
+    public function updatePeriodRange(Request $req) {
+        try {
+            $cycle = DB::table('cycles')
+                    ->where('c_id', $req->c_id)
+                    ->first();
+            
+            if($cycle) {
+                DB::table('cycles')->where('c_id', $req->c_id)->update(array(
+                    'cycle_start_date' => $req->cycle_start_date,
+                    'cycle_end_date' => $req->cycle_end_date
+                ));
+            }
+            return response()->json(['Succuss' => 'updated Period date Successfully'], 200);
+        } catch (\Exception $exception) {
+            $data['error'] = $exception->getMessage();
+        }
+    }
+    
     public function updatePeriod_day(Request $req)
     {
 
         try {
-            $check = DB::table('cycles')
-                ->where('user_id', $req->user_id)
-                ->count();
-            if ($check == 3) {
-                $data = DB::table('cycles')
-                    ->where('user_id', $req->user_id)
-                    ->orderBy('month_id', 'asc')
-                    ->get();
-                // foreach ($data as $entry) {
-                if ($data[1]->month_id == 2 && $data[1]->cycle_start_date === null) {
+            
 
-                    DB::table('cycles')
-                        ->where('user_id', $req->user_id)
-                        ->where('month_id', $data[1]->month_id)
-                        ->update(
-                            array(
-                                'cycle_start_date' => $req->period_day,
-                            )
-                        );
-                    // echo "hello";
+            // $cycle = DB::table('cycles')
+            //         ->where('c_id', $req->c_id)
+            //         ->first();
+            // $check = DB::table('cycles')
+            //     ->where('user_id', $req->user_id)
+            //     ->count();
+            // if ($check == 3) {
+            //     $data = DB::table('cycles')
+            //         ->where('user_id', $req->user_id)
+            //         ->orderBy('month_id', 'asc')
+            //         ->get();
+            //     // foreach ($data as $entry) {
+            //     if ($data[1]->month_id == 2 && $data[1]->cycle_start_date === null) {
 
-                    DB::table('cycles')
-                        ->where('user_id', $req->user_id)
-                        ->where('month_id', $data[1]->month_id - 1)
-                        ->update(
-                            array(
-                                'cycle_end_date' => $req->period_day,
-                            )
-                        );
+            //         DB::table('cycles')
+            //             ->where('user_id', $req->user_id)
+            //             ->where('month_id', $data[1]->month_id)
+            //             ->update(
+            //                 array(
+            //                     'cycle_start_date' => $req->period_day,
+            //                 )
+            //             );
+            //         // echo "hello";
 
-                    // break;
-                } else if ($data[2]->month_id == 3 && $data[2]->cycle_start_date === null) {
-                    DB::table('cycles')
-                        ->where('user_id', $req->user_id)
-                        ->where('month_id', $data[2]->month_id)
-                        ->update(
-                            array(
-                                'cycle_start_date' => $req->period_day,
-                            )
-                        );
-                    DB::table('cycles')
-                        ->where('user_id', $req->user_id)
-                        ->where('month_id', $data[2]->month_id - 1)
-                        ->update(
-                            array(
-                                'cycle_end_date' => $req->period_day,
-                            )
-                        );
+            //         DB::table('cycles')
+            //             ->where('user_id', $req->user_id)
+            //             ->where('month_id', $data[1]->month_id - 1)
+            //             ->update(
+            //                 array(
+            //                     'cycle_end_date' => $req->period_day,
+            //                 )
+            //             );
 
-                    // break;
-                } else {
-                    DB::table('cycles')
-                        ->where('user_id', $req->user_id)
-                        ->where('month_id', 1)
-                        ->update(
-                            array(
-                                'month_id' => -1,
-                            )
-                        );
-                    DB::table('cycles')
-                        ->where('user_id', $req->user_id)
-                        ->where('month_id', 2)
-                        ->update(
-                            array(
-                                'month_id' => 1,
-                            )
-                        );
-                    DB::table('cycles')
-                        ->where('user_id', $req->user_id)
-                        ->where('month_id', 3)
-                        ->update(
-                            array(
-                                'month_id' => 2,
-                                'cycle_end_date' => $req->period_day,
-                            )
-                        );
-                    DB::table('cycles')
-                        ->where('user_id', $req->user_id)
-                        ->where('month_id', -1)
-                        ->update(
-                            array(
-                                'month_id' => 3,
-                                'cycle_start_date' => $req->period_day,
-                                'cycle_end_date' => null,
-                            )
-                        );
-                }
+            //         // break;
+            //     } else if ($data[2]->month_id == 3 && $data[2]->cycle_start_date === null) {
+            //         DB::table('cycles')
+            //             ->where('user_id', $req->user_id)
+            //             ->where('month_id', $data[2]->month_id)
+            //             ->update(
+            //                 array(
+            //                     'cycle_start_date' => $req->period_day,
+            //                 )
+            //             );
+            //         DB::table('cycles')
+            //             ->where('user_id', $req->user_id)
+            //             ->where('month_id', $data[2]->month_id - 1)
+            //             ->update(
+            //                 array(
+            //                     'cycle_end_date' => $req->period_day,
+            //                 )
+            //             );
+
+            //         // break;
+            //     } else {
+            //         DB::table('cycles')
+            //             ->where('user_id', $req->user_id)
+            //             ->where('month_id', 1)
+            //             ->update(
+            //                 array(
+            //                     'month_id' => -1,
+            //                 )
+            //             );
+            //         DB::table('cycles')
+            //             ->where('user_id', $req->user_id)
+            //             ->where('month_id', 2)
+            //             ->update(
+            //                 array(
+            //                     'month_id' => 1,
+            //                 )
+            //             );
+            //         DB::table('cycles')
+            //             ->where('user_id', $req->user_id)
+            //             ->where('month_id', 3)
+            //             ->update(
+            //                 array(
+            //                     'month_id' => 2,
+            //                     'cycle_end_date' => $req->period_day,
+            //                 )
+            //             );
+            //         DB::table('cycles')
+            //             ->where('user_id', $req->user_id)
+            //             ->where('month_id', -1)
+            //             ->update(
+            //                 array(
+            //                     'month_id' => 3,
+            //                     'cycle_start_date' => $req->period_day,
+            //                     'cycle_end_date' => null,
+            //                 )
+            //             );
+            //     }
 
                 // }
-                return response()->json(['Succuss' => 'updated Period date Successfully'], 200);
-            } else {
-                return response()->json(['error' => 'Something went wrong'], 401);
+            //     return response()->json(['Succuss' => 'updated Period date Successfully'], 200);
+            // } else {
+            //     return response()->json(['error' => 'Something went wrong'], 401);
+            // }
+
+            $symp1 = new cycles;
+            $symp1->user_id = $req->user_id;
+            $cycle = DB::table('cycles')
+            ->where('user_id', $req->user_id)
+            ->orderBy('month_id', 'desc')
+            ->first();
+            $symp1->month_id = $cycle->month_id+1;
+            
+            if($user_data) {
+                $symp1->cycle_start_date = $req->cycle_start_date;
+                $symp1->cycle_end_date = $req->cycle_end_date;
             }
+            $symp1->save();
         } catch (\Exception $exception) {
             $data['error'] = $exception->getMessage();
         }
@@ -1271,6 +1309,7 @@ public function addFriend(Request $req)
 
         $newdata = DB::table('cycles')
             ->where('user_id', $user_id)
+            ->select('c_id', 'cycle_start_date', 'cycle_end_date', 'month_id', )
             ->get();
 
         return response()->json(array('cycles' => $newdata), 200);

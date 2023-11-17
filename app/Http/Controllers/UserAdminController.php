@@ -1230,9 +1230,9 @@ public function addFriend(Request $req)
             ->where('user_id', $user_id)
             ->orderBy('month_id', 'asc')
             ->select('month_id', 'cycle_start_date', 'cycle_end_date')
-            ->get();
+            ->first();
 
-        if(count($data) === 0) {
+        if($data != null) {
             $symp1 = new cycles;
             $symp1->user_id= $user_id;
             $symp1->month_id = 1;

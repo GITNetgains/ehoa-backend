@@ -1239,10 +1239,11 @@ public function addFriend(Request $req)
 
             $user = DB::table('users')->where('user_id', $user_id)->first();
             
-            if(!($user->period_day ?? null === null))
-            $symp1->cycle_start_date = $user->period_day;
-            if(!($user->average_cycle_days ?? null === null))
-            $symp1->cycle_end_date = date('Y-m-d', strtotime($dateString . ' + ' . $user->average_cycle_days . ' days'));;
+            if(!($user->period_day ?? null === null)) {
+                $symp1->cycle_start_date = $user->period_day;
+                if(!($user->average_cycle_days ?? null === null))
+                $symp1->cycle_end_date = date('Y-m-d', strtotime($user->period_day . ' + ' . $user->average_cycle_days . ' days'));
+            }
             $symp1->save();
         }
 

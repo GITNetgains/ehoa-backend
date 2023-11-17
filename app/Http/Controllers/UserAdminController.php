@@ -769,15 +769,15 @@ public function addFriend(Request $req)
                         //     $symp1->cycle_start_date = $req->period_day;
                         //     $symp1->save();
 
-                        //     // $symp2 = new cycles;
-                        //     // $symp2->user_id= $req->user_id;
-                        //     // $symp2->month_id = 2;
-                        //     // $symp2->save();
+                            // $symp2 = new cycles;
+                            // $symp2->user_id= $req->user_id;
+                            // $symp2->month_id = 2;
+                            // $symp2->save();
 
-                        //     // $symp3 = new cycles;
-                        //     // $symp3->user_id= $req->user_id;
-                        //     // $symp3->month_id = 3;
-                        //     // $symp3->save();
+                            // $symp3 = new cycles;
+                            // $symp3->user_id= $req->user_id;
+                            // $symp3->month_id = 3;
+                            // $symp3->save();
                         // } catch (\Exception $exception) {
                         //     // $data['error'] = $exception->getMessage();
                         // }
@@ -1226,28 +1226,30 @@ public function addFriend(Request $req)
     // newly created
     public function getCycles($user_id)
     {
-        $data = DB::table('cycles')
+        $cnt = DB::table('cycles')
             ->where('user_id', $user_id)
-            ->orderBy('month_id', 'asc')
-            ->select('month_id', 'cycle_start_date', 'cycle_end_date')
-            ->first();
+            ->count();
 
-        if($data != null) {
+        if(cnt == 0) {
             $symp1 = new cycles;
-            $symp1->user_id= $user_id;
+            $symp1->user_id = $user_id;
             $symp1->month_id = 1;
 
-            $user = DB::table('users')->where('user_id', $user_id)->first();
+            $user_data = DB::table('users')->where('user_id', $user_id)->first();
             
-            if(!($user->period_day ?? null === null)) {
-                $symp1->cycle_start_date = $user->period_day;
-                if(!($user->average_cycle_days ?? null === null))
-                $symp1->cycle_end_date = date('Y-m-d', strtotime($user->period_day . ' + ' . $user->average_cycle_days . ' days'));
+            // if(!($user_data->period_day ?? null === null)) {
+            //     $symp1->cycle_start_date = $user_data->period_day;
+            //     if(!($user_data->average_cycle_days ?? null === null))
+                // $symp1->cycle_end_date = date('Y-m-d', strtotime($user_data->period_day . ' + ' . $user_data->average_cycle_days . ' days'));
+            // }
+            if(!$user_data) {
+                $symp1->cycle_start_date = $user_data->period_day;
+                $symp1->cycle_end_date = date('Y-m-d', strtotime($user_data->period_day . ' + ' . $user_data->average_cycle_days . ' days'));
             }
             $symp1->save();
         }
 
-        return response()->json(array('cycles' => $data), 200);
+        return response()->json(array('cycles' => $user_data), 200);
     }
     // end
 

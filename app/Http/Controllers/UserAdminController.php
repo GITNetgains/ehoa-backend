@@ -1226,11 +1226,11 @@ public function addFriend(Request $req)
     // newly created
     public function getCycles($user_id)
     {
-        $cnt = DB::table('cycles')
+        $data = DB::table('cycles')
             ->where('user_id', $user_id)
-            ->count();
+            ->get();
 
-        if($cnt == 0) {
+        if(count($data) == 0) {
             $symp1 = new cycles;
             $symp1->user_id = $user_id;
             $symp1->month_id = 1;
@@ -1244,7 +1244,11 @@ public function addFriend(Request $req)
             $symp1->save();
         }
 
-        return response()->json(array('cycles' => $user_data), 200);
+        $newdata = DB::table('cycles')
+            ->where('user_id', $user_id)
+            ->get();
+
+        return response()->json(array('cycles' => $newdata), 200);
     }
     // end
 

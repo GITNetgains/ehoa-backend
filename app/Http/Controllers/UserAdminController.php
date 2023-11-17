@@ -1230,18 +1230,41 @@ public function addFriend(Request $req)
             ->where('user_id', $user_id)
             ->get();
 
+        $user_data = DB::table('users')->where('user_id', $user_id)->first();
+
         if(count($data) == 0) {
             $symp1 = new cycles;
             $symp1->user_id = $user_id;
             $symp1->month_id = 1;
-
-            $user_data = DB::table('users')->where('user_id', $user_id)->first();
             
             if($user_data) {
                 $symp1->cycle_start_date = $user_data->period_day;
                 $symp1->cycle_end_date = date('Y-m-d', strtotime($user_data->period_day . ' + ' . $user_data->average_cycle_days . ' days'));
             }
             $symp1->save();
+        } else {
+            // Convert the string to a DateTime object
+            $givenDate = new DateTime($data[0]->cycle_end_date);
+
+            // Get the current date
+            $currentDate = new DateTime();
+
+            // Calculate the difference between the two dates
+            $dateDifference = $currentDate->diff($givenDate);
+
+            // Access the difference in days
+            $daysDifference = $dateDifference->days;
+            if($daysDifference >= $user_data->average_cycle_length) {
+                $symp1 = new cycles;
+                $symp1->user_id = $user_id;
+                $symp1->month_id = $data[0]->month_id+1;
+                
+                if($user_data) {
+                    $symp1->cycle_start_date = date('Y-m-d', strtotime($data[0]->cycle_end_date . ' + ' . $user_data->average_cycle_length . ' days'));
+                    $symp1->cycle_end_date = date('Y-m-d', strtotime($symp1->cycle_start_date . ' + ' . $user_data->average_cycle_days . ' days'));
+                }
+                $symp1->save();
+            }
         }
 
         $newdata = DB::table('cycles')

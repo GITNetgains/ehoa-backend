@@ -1238,7 +1238,7 @@ public function addFriend(Request $req)
             $user_data = DB::table('users')->where('user_id', $user_id)->first();
             
             if($user_data) {
-                $symp1->cycle_start_date = $user_data->period_day->format('Y-m-d');
+                $symp1->cycle_start_date = $user_data->period_day;
                 $symp1->cycle_end_date = date('Y-m-d', strtotime($user_data->period_day . ' + ' . $user_data->average_cycle_days . ' days'));
             }
             $symp1->save();

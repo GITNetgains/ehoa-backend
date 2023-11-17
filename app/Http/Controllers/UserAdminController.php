@@ -1256,6 +1256,7 @@ public function addFriend(Request $req)
                 $symp1->cycle_end_date = $req->cycle_end_date;
             }
             $symp1->save();
+            return response()->json(['Succuss' => 'updated Period date Successfully'], 200);
         } catch (\Exception $exception) {
             $data['error'] = $exception->getMessage();
         }

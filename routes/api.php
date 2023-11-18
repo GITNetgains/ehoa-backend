@@ -42,7 +42,7 @@ Route::post('/save-profile-image',[UserAdminController::class,'saveProfileImage'
 // newly created route
 Route::post('/save-details',[UserAdminController::class,'saveDetails']);
 Route::post('/save-energy',[UserAdminController::class,'saveEnergy']);
-Route::get('/get-energy',[UserAdminController::class,'getEnergy']);
+Route::post('/get-energy',[UserAdminController::class,'getEnergy']);
 Route::post('/show-is_pro',[UserAdminController::class,'showIs_pro']);
 Route::post('/save-is_pro', [UserAdminController::class, 'saveIs_pro']);
 Route::post('/get-tips',[UserAdminController::class,'getTips']);

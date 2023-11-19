@@ -1139,6 +1139,18 @@ public function addFriend(Request $req)
             $data['error'] = $exception->getMessage();
         }
     }
+
+    public function deletePeriodRange(Request $req) {
+        try {
+            $cycle = DB::table('cycles')
+                    ->where('c_id', $req->c_id)
+                    ->delete();
+            
+            return response()->json(['Succuss' => 'Deleted Period date Successfully'], 200);
+        } catch (\Exception $exception) {
+            $data['error'] = $exception->getMessage();
+        }
+    }
     
     public function updatePeriod_day(Request $req)
     {

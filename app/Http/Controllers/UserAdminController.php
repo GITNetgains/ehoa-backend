@@ -830,6 +830,8 @@ public function addFriend(Request $req)
      function saveEnergy(Request $req)
     {
 
+        
+
         try {
 
             $validator = Validator::make($req->all(), [
@@ -2527,6 +2529,20 @@ public function addFriend(Request $req)
                 }
             }
 
+            if (!isset($req->multiemotions) || !is_array($req->multiemotions)) {
+                $req->multiemotions = [$req->emotions];
+            }
+            $multiemotions = implode(",", $req->multiemotions);
+                
+            DB::table('user_symptoms')
+            ->where('user_id', $req->user_id)
+            ->where('date', $req->date)
+            ->update(
+                array(
+                    'multiemotions' => $multiemotions,
+                )
+            );
+
             return response()->json(['user_id' => $req->user_id, 'token' => $req->token], 200);
         } catch (\Exception $exception) {
             $data['error'] = $exception->getMessage();
@@ -2554,6 +2570,12 @@ public function addFriend(Request $req)
                 'journal' => $data->journal,
                 'date' => $data->date
             );
+
+            if(!isset($data->multimemotions)) {
+                $newdata['multiemotions'] = [$data->emotions];
+            } else {
+                $newdata['multiemotions'] = explode(",", $data->multimemotions);
+            }
         } else {
             return response()->json(['success' => 'No data found'], 200);
         }

@@ -2568,14 +2568,9 @@ public function addFriend(Request $req)
                 'emotions' => $data->emotions,
                 'energy' => $data->energy,
                 'journal' => $data->journal,
-                'date' => $data->date
+                'date' => $data->date,
+                'multiemotions' => isset($data->multiemotions) ? explode(",", $data->multiemotions) : [$data->emotions]
             );
-
-            if(!isset($data->multimemotions)) {
-                $newdata['multiemotions'] = [$data->emotions];
-            } else {
-                $newdata['multiemotions'] = explode(",", $data->multiemotions);
-            }
         } else {
             return response()->json(['success' => 'No data found'], 200);
         }

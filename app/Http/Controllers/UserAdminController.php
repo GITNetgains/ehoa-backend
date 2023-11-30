@@ -2574,7 +2574,7 @@ public function addFriend(Request $req)
             if(!isset($data->multimemotions)) {
                 $newdata['multiemotions'] = [$data->emotions];
             } else {
-                $newdata['multiemotions'] = explode(",", $data->multimemotions);
+                $newdata['multiemotions'] = explode(",", $data->multiemotions);
             }
         } else {
             return response()->json(['success' => 'No data found'], 200);

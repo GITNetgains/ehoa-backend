@@ -488,7 +488,7 @@
             categoriesList.appendChild(newCategory);
             attachChangeListener(newCategory);
             } else {
-                event.target.name = 'parent_type';
+                event.target.name = 'category_id';
                 console.log("success");
             }
         });

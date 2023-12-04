@@ -46,15 +46,15 @@
                                     <div class="form-group row pb-3">
                                         <label class="col-sm-4 control-label text-sm-end pt-2">Category <span class="text-danger">*</span></label>
                                         <div class="col-sm-6">
-                                            <select class="form-control" id="category_id" name="category_id" required>
+                                            <select class="form-control" id="category_id" required>
                                                 <option value="">Choose Category</option>
 
-                                                @isset($categorys)
-                                                    @foreach ($categorys as $category)
-                                                        <option value="{{ $category->category_id }}">
-                                                            {{ $category->path }}
-                                                        </option>
-                                                    @endforeach
+                                                @isset($categories)
+                                                @foreach($categories['0'] as $category)
+                                                <option value="{{$category->category_id}}">
+                                                    {{$category->path}}
+                                                </option>
+                                                @endforeach
                                                 @endisset
                                             </select>
                                         </div>
@@ -125,7 +125,7 @@
                                 </span>
                             </div>
                         </div>
-                       
+
                                     <div class="form-group row pb-3">
                                         <label class="col-sm-4 control-label text-sm-end pt-2">Tags <span class="text-danger">*</span></label>
                                         <div class="col-sm-6">
@@ -203,7 +203,7 @@
 
                             </td>
                         </tr>
-                        
+
                         <tr>
                             <td>
                                 <div class="card-body">
@@ -298,3 +298,53 @@
             $(this).closest('tr').remove();
         });
     </script>
+
+
+<script>
+    // Attach a "change" event listener to all elements with the specified class
+    function attachChangeListener(element) {
+        element.addEventListener('change', function (event) {
+        var categoryData = @json($categories);
+            // Your code to handle the change event goes here
+            let category_id  = event.target.value;
+            //console.log(category_id);
+            console.log(event.target.value);
+            while(document.getElementById('categories-list').querySelector('select:last-child').id != event.target.id) {
+            let categoriesList = document.getElementById('categories-list');
+            let lastChild = categoriesList.querySelector('select:last-child');
+            console.log(lastChild.id);
+            categoriesList.removeChild(lastChild);
+        }
+
+        if(categoryData.hasOwnProperty(category_id)) {
+            let categoriesList = document.getElementById('categories-list')
+            let newCategory = document.createElement('select');
+            newCategory.className = 'form-control category-item';
+            newCategory.id = category_id;
+            let category = categoryData[category_id];
+            let initialOption = document.createElement('option');
+            initialOption.value = "-1";
+            initialOption.text = "None";
+            newCategory.appendChild(initialOption);
+            for (let key in category) {
+                if(category.hasOwnProperty(key)){
+                    let option = document.createElement('option');
+                    option.value = category[key].category_id;
+                    option.text = category[key].category_name;
+                    newCategory.appendChild(option);
+                }
+            }
+            categoriesList.appendChild(newCategory);
+            attachChangeListener(newCategory);
+            } else {
+                event.target.name = 'category_id';
+                console.log("success");
+            }
+        });
+    }
+
+    document.querySelectorAll('.category-item').forEach(function (element) {
+        attachChangeListener(element);
+    });
+
+</script>

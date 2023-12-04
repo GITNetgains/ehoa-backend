@@ -52,8 +52,17 @@ class NewBlogHandleController extends Controller
     {
         // $data['energys'] = DB::table('mood_disorders')->where('disorders_type',4)->get();
         $data['categorys'] = DB::table('categories')
-            ->where('status', 1)
-            ->get();
+                ->where('status',1)
+                ->get();
+
+        $myArray = array();
+        foreach ($data['categorys'] as $value) {
+            if (!isset($myArray[$value->parent_type])) {
+                $myArray[$value->parent_type] = array();
+            }
+            $myArray[$value->parent_type][$value->category_name] = $value;
+        }
+        $data['categories'] = $myArray;
         return view('/admin/new-blogs-create', $data);
     }
     function EditBlog($id)

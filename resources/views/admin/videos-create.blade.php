@@ -113,17 +113,16 @@
 
                             <div class="col-sm-6">
 
-                                <select class="form-control"  id="category_id" name="category_id">
+                                <select class="form-control"  id="category_id">
 
                                         <option value="">Choose Category</option>
 
-                                        @isset($category)
+                                        @isset($categories)
 
-                                        @foreach($category as $categ)
+                                        @foreach($categories['0'] as $category)
+                                        <option value="{{$category->category_id}}">
 
-                                        <option value="<?php if($categ->status==1){echo $categ->category_id;} else{} ?>">
-
-                                        {{$categ->path}}
+                                        {{$category->path}}
 
                                         </option>
 
@@ -452,3 +451,51 @@
 
 </script>
 
+<script>
+    // Attach a "change" event listener to all elements with the specified class
+    function attachChangeListener(element) {
+        element.addEventListener('change', function (event) {
+        var categoryData = @json($categories);
+            // Your code to handle the change event goes here
+            let category_id  = event.target.value;
+            //console.log(category_id);
+            console.log(event.target.value);
+            while(document.getElementById('categories-list').querySelector('select:last-child').id != event.target.id) {
+            let categoriesList = document.getElementById('categories-list');
+            let lastChild = categoriesList.querySelector('select:last-child');
+            console.log(lastChild.id);
+            categoriesList.removeChild(lastChild);
+        }
+
+        if(categoryData.hasOwnProperty(category_id)) {
+            let categoriesList = document.getElementById('categories-list')
+            let newCategory = document.createElement('select');
+            newCategory.className = 'form-control category-item';
+            newCategory.id = category_id;
+            let category = categoryData[category_id];
+            let initialOption = document.createElement('option');
+            initialOption.value = "-1";
+            initialOption.text = "None";
+            newCategory.appendChild(initialOption);
+            for (let key in category) {
+                if(category.hasOwnProperty(key)){
+                    let option = document.createElement('option');
+                    option.value = category[key].category_id;
+                    option.text = category[key].category_name;
+                    newCategory.appendChild(option);
+                }
+            }
+            categoriesList.appendChild(newCategory);
+            attachChangeListener(newCategory);
+            } else {
+                event.target.name = 'parent_type';
+                console.log("success");
+            }
+        });
+    }
+
+    document.querySelectorAll('.category-item').forEach(function (element) {
+        attachChangeListener(element);
+    });
+
+</script>

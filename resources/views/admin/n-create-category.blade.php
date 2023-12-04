@@ -227,7 +227,6 @@
 
 <script type="text/javascript">
     console.log("this");
-    console.log($categorys);
 
     $(document).on('click','.category-item', function(element){
         console.log('Element with class "${element.id}" changed!');

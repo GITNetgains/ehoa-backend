@@ -225,9 +225,13 @@
 
 <x-footer/>
 
-<script>
+<script type="text/javascript">
     console.log("this");
     console.log($categorys);
+
+    $(document).on('click','.category-item', function(element){
+        console.log('Element with class "${element.id}" changed!');
+    });
 
     // Attach a "change" event listener to all elements with the specified class
     document.querySelectorAll('.category-item').forEach(function (element) {

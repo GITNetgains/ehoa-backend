@@ -64,13 +64,13 @@
 
                       <div class="form-group row pb-3">
                             <label class="col-sm-4 control-label text-sm-end pt-2">Category Name </label>
-                            <div class="col-sm-6" id="category-list">
+                            <div class="col-sm-6">
                                 <select class="form-control"  id="category_id" name="category_id">
                                         <option value="">Choose Category</option>
 
                                         @isset($categorys)
                                         @foreach($categorys as $category)
-                                        <option value="<?php if($category->status==1){echo $category->category_id;} else{} ?>" class="category-item">
+                                        <option value="<?php if($category->status==1){echo $category->category_id;} else{} ?>">
                                         {{$category->path}}
                                         </option>
                                         @endforeach
@@ -83,7 +83,7 @@
                             <label class="col-sm-4 control-label text-sm-end pt-2">Sub-Category</label>
                             <div class="col-sm-6">
                                 <select class="form-control"  id="subcategory_id" name="subcategory_id">
-                                    {{-- <option value="">Choose Sub-Category</option> --}}
+                                    <option value="">Choose Sub-Category</option>
                             </select>
                             </div>
                         </div> --}}
@@ -187,13 +187,35 @@
 <x-footer/>
 
 <script>
-    var elements = document.getElementsByClassName('yourClassName');
+    $('#category_id').on('change',function(e){
 
-    // Attach a "change" event listener to all elements with the specified class
-    document.querySelectorAll('.category-item').forEach(function (element) {
-        element.addEventListener('change', function () {
-            // Your code to handle the change event goes here
-            console.log('Element with class "${element.id}" changed!');
+        e.preventDefault();
+        $('#subcategory_id').html('');
+
+        var category_id  = $('#category_id').val();
+    //  alert (category_id );
+        if(category_id ==''){
+            var data=' <option value="">Choose sub category</option>';
+	       $('#subcategory_id').append(data);
+        } else{
+
+            $('#subcategory_id').html('');
+        }
+        var host = "{{URL::to('/')}}";
+        $.ajax({
+            type: "POST",
+            data: {
+            "_token": "{{ csrf_token() }}",
+             "category_id": category_id,
+
+        },
+         url: host+'/admin/get-blogs-sub-categories',
+        }).done(function(response) {
+         console.log(response.get_data);
+		 $.each(response.get_data, function(index, element){
+            var data=' <option value="'+element.category_id +'">'+element.category_name+'</option>';
+	       $('#subcategory_id').append(data);
+		 });
         });
     });
 </script>

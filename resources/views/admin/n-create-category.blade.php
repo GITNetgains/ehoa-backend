@@ -103,13 +103,13 @@
                                         @isset($categorys)
 
                                         @foreach($categories as $category)
-                                        <?php if($category->parent_type==0){echo "<option value="{{$category->category_id}}"> {{ $category->category_name }} </option>";} else{} ?>
+                                        {{-- <?php if($category->parent_type=="0"){echo "<option value="{{$category->category_id}}"> {{ $category->category_name }} </option>";} else{} ?> --}}
 
-                                        {{-- <option value="{{$category->category_id}}"> --}}
+                                        <option value="{{$category->category_id}}"> --}}
 
                                         {{-- {{$category->path}}
 
-                                        </option> --}}
+                                        </option>
 
                                         @endforeach
 
@@ -230,7 +230,7 @@
     console.log("this");
 
     try{
-        var categoryData = @json($categorys);
+        var categoryData = @json($categories);
 
         // Now you can access categoryData in your JavaScript code
         console.log(categoryData);

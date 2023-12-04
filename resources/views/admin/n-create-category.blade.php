@@ -243,7 +243,7 @@
         if(categoryData.hasOwnProperty(category_id)) {
             let categoriesList = document.getElementById('categories-list')
             let newCategory = document.createElement('select');
-            newCategory.className = 'form-control category-item';
+            newCategory.className = 'form-control category-item mt-2';
             newCategory.id = category_id;
             let category = categoryData[category_id];
             let initialOption = document.createElement('option');

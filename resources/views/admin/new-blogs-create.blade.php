@@ -45,9 +45,9 @@
 
                                     <div class="form-group row pb-3">
                                         <label class="col-sm-4 control-label text-sm-end pt-2">Category <span class="text-danger">*</span></label>
-                                        <div class="col-sm-6">
-                                            <select class="form-control" id="category_id" required>
-                                                <option value="">Choose Category</option>
+                                        <div class="col-sm-6" id="categories-list">
+                                            <select class="form-control category-item" id="0" required>
+                                                <option value="-1">Choose Category</option>
 
                                                 @isset($categories)
                                                 @foreach($categories['0'] as $category)
@@ -319,7 +319,7 @@
         if(categoryData.hasOwnProperty(category_id)) {
             let categoriesList = document.getElementById('categories-list')
             let newCategory = document.createElement('select');
-            newCategory.className = 'form-control category-item';
+            newCategory.className = 'form-control category-item mt-2';
             newCategory.id = category_id;
             let category = categoryData[category_id];
             let initialOption = document.createElement('option');

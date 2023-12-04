@@ -226,7 +226,6 @@
 <x-footer/>
 
 <script>
-    var elements = document.getElementsByClassName('yourClassName');
     console.log("this");
     console.log($categorys);
 

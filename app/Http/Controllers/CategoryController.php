@@ -87,7 +87,7 @@ class CategoryController extends Controller
                 ->get();
 
             $myArray = array();
-            foreach ($data as $value) {
+            foreach ($data['categorys'] as $value) {
                 if (!isset($myArray[$value->parent_type])) {
                     $myArray[$value->parent_type] = array();
                 }

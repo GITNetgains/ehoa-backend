@@ -22,7 +22,7 @@
         {{ session('error') }}
     </div>
     @endif
-    
+
 
 <section class="card">
     <div class="col-lg-12">
@@ -32,11 +32,11 @@
             <section class="card">
                 <header class="card-header">
                     <div class="card-actions">
-                     
+
                     </div>
                     <h2 class="card-title">Create Blogs</h2>
                 </header>
-               
+
                     <table class="datat" id="abc">
                         <tr>
                           <td>
@@ -48,7 +48,7 @@
                         </div>
                       </div>
 
-                     
+
                     <div class="form-group row pb-3">
                         <label class="col-sm-4 control-label text-sm-end pt-2">Author Name</label>
                         <div class="col-sm-6">
@@ -64,13 +64,13 @@
 
                       <div class="form-group row pb-3">
                             <label class="col-sm-4 control-label text-sm-end pt-2">Category Name </label>
-                            <div class="col-sm-6">
+                            <div class="col-sm-6" id="category-list">
                                 <select class="form-control"  id="category_id" name="category_id">
                                         <option value="">Choose Category</option>
-                                        
+
                                         @isset($categorys)
                                         @foreach($categorys as $category)
-                                        <option value="<?php if($category->status==1){echo $category->category_id;} else{} ?>">
+                                        <option value="<?php if($category->status==1){echo $category->category_id;} else{} ?>" class="category-item">
                                         {{$category->path}}
                                         </option>
                                         @endforeach
@@ -79,12 +79,11 @@
                             </div>
                         </div>
 
-
                        {{-- <div class="form-group row pb-3">
                             <label class="col-sm-4 control-label text-sm-end pt-2">Sub-Category</label>
                             <div class="col-sm-6">
                                 <select class="form-control"  id="subcategory_id" name="subcategory_id">
-                                    <option value="">Choose Sub-Category</option>
+                                    {{-- <option value="">Choose Sub-Category</option> --}}
                             </select>
                             </div>
                         </div> --}}
@@ -112,8 +111,8 @@
                             </span>
                         </div>
                     </div>
-                
-                  
+
+
                     <div class="form-group row mb-3">
                         <label class="col-sm-4 control-label text-sm-end pt-2">Blog Description</label>
                         <div class="col-sm-6">
@@ -126,8 +125,8 @@
                         </div>
                     </div>
 
-                    
-                    
+
+
                     <div class="form-group row pb-3">
                         <label class="col-sm-4 control-label text-sm-end pt-2">Blog Tags</label>
                         <div class="col-sm-6">
@@ -163,7 +162,7 @@
                                     <option value="1">Active</option>
                                     <option value="2">In-Active</option>
                                 </select>
-                               
+
                                 <span class="text-danger">
                                     @error('status')
                                     {{$message}}
@@ -182,51 +181,30 @@
             </section>
         </form>
     </div>
-    </section>  
+    </section>
 
     {{-- </div> --}}
 <x-footer/>
 
 <script>
-    $('#category_id').on('change',function(e){
-        
-        e.preventDefault();
-        $('#subcategory_id').html('');
-       
-        var category_id  = $('#category_id').val();
-    //  alert (category_id );
-        if(category_id ==''){
-            var data=' <option value="">Choose sub category</option>';
-	       $('#subcategory_id').append(data);
-        } else{
-            
-            $('#subcategory_id').html('');
-        }
-        var host = "{{URL::to('/')}}";
-        $.ajax({
-            type: "POST",
-            data: {
-            "_token": "{{ csrf_token() }}",
-             "category_id": category_id,
+    var elements = document.getElementsByClassName('yourClassName');
 
-        },
-         url: host+'/admin/get-blogs-sub-categories',
-        }).done(function(response) {
-         console.log(response.get_data);  
-		 $.each(response.get_data, function(index, element){
-            var data=' <option value="'+element.category_id +'">'+element.category_name+'</option>';
-	       $('#subcategory_id').append(data);
-		 });
-        });	
+    // Attach a "change" event listener to all elements with the specified class
+    document.querySelectorAll('.category-item').forEach(function (element) {
+        element.addEventListener('change', function () {
+            // Your code to handle the change event goes here
+            console.log('Element with class "${element.id}" changed!');
+        });
     });
 </script>
 
 
 <script type="text/javascript">
     $(document).on('click','.addrow', function(){
-            var row='<tr><td><div class="card-body"><div class="row_r row my-2"><div class="col-12 text-end"><button type="button" name="add" class="btn btn-success btn-sm addrow"><i class="fas fa-plus"></i></button>&nbsp;<button type="button" name="add" class="btn btn-danger btn-sm removerow"><i class="fas fa-minus"></i></button></div></div><div class="form-group row pb-3"><label class="col-sm-4 control-label text-sm-end pt-2">Blog Title: </label><div class="col-sm-6"><input type="text" name="slide_title[]" value="" class="form-control" required></div></div><div class="form-group row mb-3"><label class="col-sm-4 control-label text-sm-end pt-2">Blog Description: </label><div class="col-sm-6"><textarea  name="slide_description[]" id="blog_additional_info" value=""  class="form-control" placeholder=""></textarea></div></div><div class="form-group row mb-3"><label class="col-sm-4 control-label text-sm-end pt-2">Blogs Image: </label><div class="col-sm-6"><input type="file" name="slide_image[]" id="blog_image" value="" aria-describedby=""  class="form-control" placeholder="" accept="image/*"></div></div></div><div class="form-group row mb-3"><label class="col-sm-4 control-label text-sm-end pt-2">Blog Url: </label><div class="col-sm-6"><input type="url" name="slide_url" class="form-control" required><span class="text-danger"></span></div></div></td></tr>'; 
+            var row='<tr><td><div class="card-body"><div class="row_r row my-2"><div class="col-12 text-end"><button type="button" name="add" class="btn btn-success btn-sm addrow"><i class="fas fa-plus"></i></button>&nbsp;<button type="button" name="add" class="btn btn-danger btn-sm removerow"><i class="fas fa-minus"></i></button></div></div><div class="form-group row pb-3"><label class="col-sm-4 control-label text-sm-end pt-2">Blog Title: </label><div class="col-sm-6"><input type="text" name="slide_title[]" value="" class="form-control" required></div></div><div class="form-group row mb-3"><label class="col-sm-4 control-label text-sm-end pt-2">Blog Description: </label><div class="col-sm-6"><textarea  name="slide_description[]" id="blog_additional_info" value=""  class="form-control" placeholder=""></textarea></div></div><div class="form-group row mb-3"><label class="col-sm-4 control-label text-sm-end pt-2">Blogs Image: </label><div class="col-sm-6"><input type="file" name="slide_image[]" id="blog_image" value="" aria-describedby=""  class="form-control" placeholder="" accept="image/*"></div></div></div><div class="form-group row mb-3"><label class="col-sm-4 control-label text-sm-end pt-2">Blog Url: </label><div class="col-sm-6"><input type="url" name="slide_url" class="form-control" required><span class="text-danger"></span></div></div></td></tr>';
             $('#abc').append(row);
         });
         $(document).on('click','.removerow', function(){
             $(this).closest('tr').remove();
         });
+</script>

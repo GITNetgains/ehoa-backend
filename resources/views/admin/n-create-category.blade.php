@@ -56,7 +56,7 @@
 
                     <header class="card-header">
 
-                        
+
 
                         <h2 class="card-title" style="text-align:center;">Create Category</h2>
 
@@ -88,7 +88,7 @@
 
                         </div>
 
-                        
+
 
                         <div class="form-group row pb-3">
 
@@ -96,7 +96,7 @@
 
                             <div class="col-sm-6">
 
-                                <select class="form-control"  id="parent_type" name="parent_type">
+                                <select class="form-control"  id="parent_type" name="parent_type" class="category-item">
 
                                         <option value="0">None</option>
 
@@ -219,9 +219,22 @@
 
 </div>
 
-   
+
 
 
 
 <x-footer/>
 
+<script>
+    var elements = document.getElementsByClassName('yourClassName');
+    console.log("this");
+    console.log($categorys);
+
+    // Attach a "change" event listener to all elements with the specified class
+    document.querySelectorAll('.category-item').forEach(function (element) {
+        element.addEventListener('change', function () {
+            // Your code to handle the change event goes here
+            console.log('Element with class "${element.id}" changed!');
+        });
+    });
+</script>

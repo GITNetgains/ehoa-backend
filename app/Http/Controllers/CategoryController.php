@@ -85,11 +85,20 @@ class CategoryController extends Controller
             $data['categorys'] = DB::table('categories')
                 ->where('status',1)
                 ->get();
+
+            $myArray = array();
+            foreach ($data as $value) {
+                if (!isset($myArray[$value->parent_type])) {
+                    $myArray[$value->parent_type] = array();
+                }
+                $myArray[$value->parent_type][$value->category_name] = $value;
+            }
+            $data['categories'] = $myArray;
             return view('/admin/n-create-category', $data);
         } catch (\Exception $exception) {
             $data['error'] = $exception->getMessage();
             $logs = $exception->getMessage();
-            \Log::channel('st_logs')->info($logs);
+            Log::channel('st_logs')->info($logs);
             return view('error', $data);
         }
     }
@@ -239,7 +248,7 @@ class CategoryController extends Controller
                 DB::table('categories')->where('category_id', $c_id)->where('parent_type', '!=', 0)->update(array(
                     'status' => 3,
                 ));
-              
+
             }
             return redirect('/admin/n-list-category')->with('success','Category Archived Successfully');
         } catch (\Exception $exception) {
@@ -338,7 +347,7 @@ class CategoryController extends Controller
             $data['subcategories'] = DB::table('categories')->where('status',3)
                 ->where('parent_type', '!=', 0)
                 ->get();
-          
+
                 return view('/admin/archived-category',$data);
         } catch (\Exception $exception) {
             $data['error'] = $exception->getMessage();
@@ -346,7 +355,7 @@ class CategoryController extends Controller
             \Log::channel('st_logs')->info($logs);
             return view('error', $data);
         }
-       
+
     }
     function UndoCategory($category_id,$parent){
         try {
@@ -361,7 +370,7 @@ class CategoryController extends Controller
                 DB::table('categories')->where('category_id', $category_id)->where('parent_type', '!=', 0)->update(array(
                     'status' => 1,
                 ));
-              
+
             }
             return redirect('/admin/archived-category')->with('success','Category Active Successfully');
         } catch (\Exception $exception) {

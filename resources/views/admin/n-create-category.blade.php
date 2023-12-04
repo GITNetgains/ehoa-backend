@@ -96,7 +96,7 @@
 
                             <div class="col-sm-6">
 
-                                <select class="form-control"  id="parent_type" name="parent_type" class="category-item">
+                                <select class="form-control category-item"  id="parent_type" name="parent_type">
 
                                         <option value="0">None</option>
 
@@ -227,6 +227,15 @@
 
 <script type="text/javascript">
     console.log("this");
+
+    try{
+        var categoryData = @json($categorys);
+
+        // Now you can access categoryData in your JavaScript code
+        console.log(categoryData);
+    } catch(e){
+        console.log(e.message);
+    }
 
     $(document).on('click','.category-item', function(element){
         console.log('Element with class "${element.id}" changed!');

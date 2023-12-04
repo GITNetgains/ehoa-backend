@@ -132,17 +132,17 @@
 
                                 </select>
 
-                                <span class="text-danger">
+                            </div>
+
+                            <span class="text-danger">
 
                                     @error('category_id')
 
-                                    {{$message}}
+                                {{$message}}
 
-                                @enderror
+                            @enderror
 
-                                </span>
-
-                            </div>
+                            </span>
 
                         </div>
 

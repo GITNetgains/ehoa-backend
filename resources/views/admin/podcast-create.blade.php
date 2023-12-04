@@ -71,12 +71,12 @@
 
                                         @endisset
                                 </select>
-                                <span class="text-danger">
-                                    @error('category_id')
-                                    {{$message}}
-                                @enderror
-                                </span>
                             </div>
+                            <span class="text-danger">
+                                @error('category_id')
+                                {{$message}}
+                            @enderror
+                            </span>
                         </div>
 
                     {{--     <div class="form-group row pb-3">

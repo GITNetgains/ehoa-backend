@@ -103,11 +103,11 @@
                                         @isset($categorys)
 
                                         @foreach($categories as $category)
-                                        {{-- <?php if($category->parent_type=="0"){echo "<option value="{{$category->category_id}}"> {{ $category->category_name }} </option>";} else{} ?> --}}
+                                        <?php if($category->parent_type=="0"){echo "<option value="{{$category->category_id}}"> {{ $category->category_name }} </option>";} else{} ?>
 
-                                        <option value="{{$category->category_id}}"> --}}
+                                        <option value="{{$category->category_id}}">
 
-                                        {{-- {{$category->path}}
+                                        {{$category->path}}
 
                                         </option>
 

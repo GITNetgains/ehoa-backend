@@ -57,7 +57,7 @@
                             <label class="col-sm-4 control-label text-sm-end pt-2">Choose Category path <span class="text-danger">*</span></label>
                             <div class="col-sm-6" id="categories-list">
                                 <select class="form-control category-item"  id="0">
-                                        <option value="">Choose Category</option>
+                                        <option value="-1">Choose Category</option>
                                         @isset($categories)
 
                                         @foreach($categories['0'] as $category)

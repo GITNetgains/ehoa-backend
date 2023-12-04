@@ -1,16 +1,5 @@
 import './bootstrap';
 
-// var categoryData = @json($categories);
-
-// try{
-    //var categoryData = @json($categories);
-
-    // Now you can access categoryData in your JavaScript code
-//    console.log(categoryData);
-// } catch(e){
-    //   console.log(e.message);
-// }
-
 // Attach a "change" event listener to all elements with the specified class
 function attachChangeListener(element) {
     element.addEventListener('change', function (event) {

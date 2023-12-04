@@ -1,4 +1,5 @@
 // Attach a "change" event listener to all elements with the specified class
+
 function attachChangeListener(element) {
     element.addEventListener('change', function (event) {
         var categoryData = @json($categories);

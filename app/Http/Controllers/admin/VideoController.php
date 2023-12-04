@@ -13,8 +13,18 @@ class VideoController extends Controller
 {
     function videosCreate()
     {
-        $data['category'] = DB::table('categories')->where('status', 1)->get();
+        $data['categorys'] = DB::table('categories')
+        ->where('status',1)
+        ->get();
 
+        $myArray = array();
+        foreach ($data['categorys'] as $value) {
+            if (!isset($myArray[$value->parent_type])) {
+                $myArray[$value->parent_type] = array();
+            }
+            $myArray[$value->parent_type][$value->category_name] = $value;
+        }
+        $data['categories'] = $myArray;
         return view('/admin/videos-create', $data);
     }
     function videosSave(Request $req)
